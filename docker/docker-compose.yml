@@ -1,3 +1,5 @@
+version: "3.7"
+
 services:
   web:
     image: ${STACK_IMAGE}
@@ -12,11 +14,11 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.http.services.curriculum.loadBalancer.server.port=8080"
-        - "traefik.http.routers.curriculum.rule=Host(`ahupond.dev`)"
-        - "traefik.http.routers.curriculum.middlewares=secure@file"
+        - "traefik.http.routers.curriculum.rule=Host(`ahupond.dev`,`www.ahupond.dev`)"
+        - "traefik.http.routers.curriculum.middlewares=redirect@file,secure@file"
         - "traefik.http.routers.curriculum.service=curriculum"
         - "traefik.http.routers.curriculum.tls.options=secure@file"
-        - "traefik.http.routers.curriculum.tls.certResolver=gandi"
+        - "traefik.http.routers.curriculum.tls.certResolver=gandi"      
     read_only: true
     volumes:
       - tmpfs:/tmp
