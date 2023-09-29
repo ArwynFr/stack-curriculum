@@ -1,0 +1,38 @@
+name: Publish a docker stack on my Docker swarm
+
+on:
+  workflow_call:
+    inputs:
+      sources:
+        description: Path to the sources directory containing the Dockerfile
+        required: true
+        type: string
+      compose:
+        description: Path to the docker-compose file containing the stack defintion
+        required: true
+        type: string
+      image:
+        description: Name of the docker image to build
+        required: true
+        type: string
+      stack:
+        description: Name of the docker stack to deploy
+        required: true
+        type: string
+
+env:
+  STACK_VERSION: ${{ github.run_id }}
+  STACK_IMAGE: ${{ inputs.image }}
+
+jobs:
+  build:
+    runs-on: [self-hosted]
+    steps:
+      - name: Checkout source files
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build ${{ inputs.sources }} --tag ${STACK_IMAGE}
+
+      - name: Deploy stack
+        run: docker stack deploy --compose-file ${{ inputs.compose }} --prune ${{ inputs.stack }}

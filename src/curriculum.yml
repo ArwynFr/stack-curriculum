@@ -1,0 +1,15 @@
+extends: default-sans-with-font-fallbacks
+base:
+  font-size: 8
+sidebar:
+  font-size: 1em
+  padding: [2, 8]
+heading-h1:
+  font-size: 18
+heading-h2:
+  font-size: 16
+heading-h3:
+  font-size: 10
+table:
+  border-width: 0
+  grid-width: [1, 0]

@@ -1,0 +1,51 @@
+services:
+  web:
+    image: ${STACK_IMAGE}
+    networks:
+      - reverse
+    # configs:
+    #   - source: expires
+    #     target: /etc/nginx/conf.d/expires.conf
+    #   - source: gzip
+    #     target: /etc/nginx/conf.d/gzip.conf
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.services.curriculum.loadBalancer.server.port=8080"
+        - "traefik.http.middlewares.curriculum.headers.sslHost=ahupond.dev"
+        - "traefik.http.middlewares.curriculum.headers.sslRedirect=true"
+        - "traefik.http.middlewares.curriculum.headers.sslForceHost=true"
+        - "traefik.http.middlewares.curriculum.headers.stsSeconds=31536000"
+        - "traefik.http.middlewares.curriculum.headers.stsIncludeSubdomains=true"
+        - "traefik.http.middlewares.curriculum.headers.forceStsHeader=true"
+        - "traefik.http.routers.curriculum.entrypoints=https"
+        - "traefik.http.routers.curriculum.rule=Host(`ahupond.dev`)"
+        - "traefik.http.routers.curriculum.middlewares=curriculum@docker"
+        - "traefik.http.routers.curriculum.service=curriculum"
+        - "traefik.http.routers.curriculum.tls.options=secure@file"
+        - "traefik.http.routers.curriculum.tls.certResolver=gandi"
+        - "traefik.http.routers.curriculum_unsecure.entrypoints=http"
+        - "traefik.http.routers.curriculum_unsecure.rule=Host(`ahupond.dev`)"
+        - "traefik.http.routers.curriculum_unsecure.middlewares=curriculum@docker"
+        - "traefik.http.routers.curriculum_unsecure.service=curriculum"
+    read_only: true
+    volumes:
+      - tmpfs:/tmp
+
+networks:
+  reverse:
+    external: true
+
+# configs:
+#   expires:
+#     file: ./expires.conf
+#     name: expires-${STACK_VERSION}
+#   gzip:
+#     file: ./gzip.conf
+#     name: gzip-${STACK_VERSION}
+
+volumes:
+  tmpfs:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs

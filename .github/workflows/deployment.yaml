@@ -1,0 +1,14 @@
+name: publish new version
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    uses: ./.github/workflows/docker-stack-deploy.yaml
+    with:
+      sources: ./src
+      compose: ./docker/docker-compose.yml
+      image: arwynfr_curriculum
+      stack: curriculum
