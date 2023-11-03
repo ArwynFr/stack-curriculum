@@ -7,7 +7,8 @@
 🏢 12 ans professionnel .
 💻 28 ans amateur .
 icon:stack-overflow[] https://stackoverflow.com/users/6092856/arwynfr[ArwynFr] .
-icon:github[] https://github.com/ArwynFr[ArwynFr] +
+icon:github[] https://github.com/ArwynFr[ArwynFr] .
+https://ahupond.dev/curriculum.pdf[icon:file-pdf-o[]] +
 🌐 11 rue du Drac, 38000 Grenoble .
 📧 adrien.hupond@gmail.com .
 📞 06 76 25 57 00 +
