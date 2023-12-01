@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: curriculum
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    external-dns.alpha.kubernetes.io/hostname: ahupond.dev
+spec:
+  tls:
+    - secretName: cert-ahupond-dev
+      hosts:
+        - ahupond.dev
+  rules:
+    - host: ahupond.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: curriculum
+                port:
+                  number: 8080
