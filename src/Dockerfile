@@ -1,10 +1,10 @@
-FROM asciidoctor/docker-asciidoctor AS build
+FROM asciidoctor/docker-asciidoctor@sha256:e9637c111d0ee2ea838d7d75ac8efcd65e1702f1447f9514923c86cecc099c97 AS build
 WORKDIR /src/curriculum
 COPY ./curriculum.* ./
 RUN asciidoctor curriculum.adoc ; asciidoctor-pdf curriculum.adoc
 
 
-FROM debian:12.1-slim AS minifier
+FROM debian:12.1-slim@sha256:24c92a69df28b21676d721fe18c0bf64138bfc69b486746ad935b49cc31b0b91 AS minifier
 WORKDIR /src/curriculum
 RUN apt-get update --yes
 RUN apt-get install --yes --no-install-recommends minify=2.12.4-2
