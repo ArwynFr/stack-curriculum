@@ -10,8 +10,12 @@ on:
 
 jobs:
   release:
-    uses: arwynfr/arwynfr/.github/workflows/rke2-deployment.yaml@main
+    uses: arwynfr/arwynfr/.github/workflows/rke2-deployment-generic.yaml@main
     with:
       sources: ./src
       resources: ./kube
       version: ${{ github.run_id }}
+    secrets:
+      token: ${{ secrets.token }}
+      server: ${{ secrets.server }}
+      authority: ${{ secrets.authority }}
