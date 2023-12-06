@@ -1,4 +1,4 @@
-FROM asciidoctor/docker-asciidoctor@sha256:e9637c111d0ee2ea838d7d75ac8efcd65e1702f1447f9514923c86cecc099c97 AS build
+FROM asciidoctor/docker-asciidoctor:1.59.0 AS build
 WORKDIR /src/curriculum
 COPY ./curriculum.* ./
 RUN asciidoctor curriculum.adoc ; asciidoctor-pdf curriculum.adoc
