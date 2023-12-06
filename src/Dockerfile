@@ -11,7 +11,7 @@ RUN apt-get install --yes --no-install-recommends minify=2.12.4-2
 COPY --from=build /src/curriculum/curriculum.html ./
 RUN for ext in "css" "js" "html"; do find . -name "*.$ext" -exec minify -o {} {} \; -printf "gzip -9c %p > %p.gz\n" | sh; done
 
-FROM nginxinc/nginx-unprivileged:1.25.3-alpine-slim@sha256:625e985c5ca802353f6a6614d0af0ce7e629c38efdffd470dfebae526601d0b4 AS runtime
+FROM nginxinc/nginx-unprivileged:1.25.3-alpine-slim@sha256:7a1e48fb200b847bfe8e9d4cc605d14237574cc8122ba435dfdc5b9bd1f032a3 AS runtime
 WORKDIR /usr/share/nginx/html
 COPY --from=minifier /src/curriculum/curriculum.html index.html
 COPY --from=build /src/curriculum/curriculum.pdf ./
