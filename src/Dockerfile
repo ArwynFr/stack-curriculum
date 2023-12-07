@@ -3,7 +3,6 @@ WORKDIR /src/curriculum
 COPY ./curriculum.* ./
 RUN asciidoctor curriculum.adoc ; asciidoctor-pdf curriculum.adoc
 
-
 FROM debian:12.2-slim@sha256:2bc5c236e9b262645a323e9088dfa3bb1ecb16cc75811daf40a23a824d665be9 AS minifier
 WORKDIR /src/curriculum
 RUN apt-get update --yes
@@ -15,3 +14,4 @@ FROM nginxinc/nginx-unprivileged:1.25.3-alpine-slim@sha256:7a1e48fb200b847bfe8e9
 WORKDIR /usr/share/nginx/html
 COPY --from=minifier /src/curriculum/curriculum.html index.html
 COPY --from=build /src/curriculum/curriculum.pdf ./
+COPY ./*.txt ./

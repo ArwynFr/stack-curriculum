@@ -1,0 +1,4 @@
+Sitemap: https://ahupond.dev/sitemap.txt
+
+User-agent: *
+Disallow:
