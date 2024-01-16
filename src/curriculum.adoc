@@ -23,19 +23,19 @@ https://ahupond.dev/curriculum.pdf[icon:file-pdf-o[]] +
 [cols="2,3,2,7"]
 |===
 
+| 2017-2024
+s| 🏢 Architecte logiciel
+| CS GROUP
+|
+Comités d'architecture . Revue de code dotnet / java +
+Certification UML en cours . Certification ITIL v4 . Management
+
 | Nov 2023
 s| 🏢 Enseignant vacataire
 | Université Grenoble-Alpes
 |
 Vacations ponctuelles . Cours magistral +
 Informatique et Management
-
-| 2017-2023
-s| 🏢 Architecte logiciel
-| CS GROUP
-|
-Comités d'architecture . Revue de code dotnet / java +
-Certification UML en cours . Certification ITIL v4 . Management
 
 | 2011-2017
 s| 🏢 Consultant IT
