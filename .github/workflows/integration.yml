@@ -1,0 +1,14 @@
+name: Continuous Integration
+
+on:
+  workflow_dispatch:
+  pull_request: 
+    branches: [main]
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: build docker image
+        run: docker build src
