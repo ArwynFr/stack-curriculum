@@ -10,5 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: git checkout
+        uses: actions/checkout@v4
+
       - name: build docker image
         run: docker build src
