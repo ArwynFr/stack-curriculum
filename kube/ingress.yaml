@@ -5,11 +5,13 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     external-dns.alpha.kubernetes.io/hostname: ahupond.dev
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
   tls:
     - secretName: cert-ahupond-dev
       hosts:
         - ahupond.dev
+        - www.ahupond.dev
   rules:
     - host: ahupond.dev
       http:
