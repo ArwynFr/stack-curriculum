@@ -1,4 +1,4 @@
-= Adrien HUPOND: Architecte logiciels et systèmes
+= Adrien HUPOND: Architecte solutions
 :pdf-theme: ./curriculum.yml
 :icons: font
 
@@ -20,54 +20,62 @@ https://ahupond.dev/curriculum.pdf[icon:file-pdf-o[]] +
 
 == Curriculum
 
-[cols="2,3,2,7"]
+[cols="2,5,7"]
 |===
 
 | 2017-2024
-s| 🏢 Architecte logiciel
-| CS GROUP
 |
-Comités d'architecture . Revue de code dotnet / java +
-Certification UML en cours . Certification ITIL v4 . Management
+*🏢 Architecte solutions* +
+CS GROUP
+|
+Comités d'architecture . Revues de code . Expert technique +
+DevOps . Management . Avant-vente . SSI
 
 | Nov 2023
-s| 🏢 Enseignant vacataire
-| Université Grenoble-Alpes
+|
+*🏢 Enseignant vacataire* +
+Université Grenoble-Alpes
 |
 Vacations ponctuelles . Cours magistral +
 Informatique et Management
 
 | 2011-2017
-s| 🏢 Consultant IT
-| Capgemini
+|
+*🏢 Consultant IT* +
+Capgemini Telecom Services
 |
 Développement applicatif dotnet, java, qlikview +
 Chef d'équipe développement . Architecte logiciel junior
 
-| 1995-2023
-2+s| 💻 Informatique amateur
+| 1995-2024
+|
+*💻 Informaticien amateur*
 |
 Développement divers applications et sites . CICD . devops +
 Administration systèmes et réseaux
 
 | 2014-2017
-2+s| ✋ Protection Civile de l'Isère
+|
+*✋ Bénévole* +
+Protection Civile de l'Isère
 |
 Equipier secouriste · Maintenance des véhicules +
 Formateur à l'emploi des véhicules d'urgence
 
-| 2006-2023
-2+s|✋ Scouts et Guides de France
+| 2006-2024
+|
+*✋ Bénévole* +
+Scouts et Guides de France
 |
 Directeur de camps scouts · Directeur d'actions de formation +
 Fonctions administratives, pédagogiques ou techniques
 
 | 2011
-2+s| 💼 Ingénieur diplômé ENI Brest
+| *💼 Ingénieur diplômé ENI Brest*
 | Informatique · Electronique · Mécatronique
 
 | 2007
-2+s| 💼 BTS Informatique et Réseau
+| *💼 BTS Informatique et Réseau*
 | Mention très bien · Major académique
 
 |===
@@ -133,14 +141,21 @@ Je pilote la tierce maintenance adaptative (incluant la maintenance corrective e
 
 2019-2021 . *TMMA* . CS GROUP . CEA Grenoble
 ****
-Suite à la stabilisation des besoins du CEA sur GEPETO, je prends en charge la gestion de l'architecture logicielle pour l'ensemble du portefeuille de TMA de CS GROUP pour le CEA Grenoble (environ 70 applications). Je pilote plus particulièrement l'activité des consultants SSI (4 collaborateurs) et j'accompagne techniquement les lead devs du projet.
+Je prends en charge la gestion de l'architecture logicielle pour l'ensemble du portefeuille de TMA de CS GROUP pour le CEA Grenoble (environ 70 applications). Je pilote plus particulièrement l'activité des consultants SSI (4 collaborateurs) et j'accompagne techniquement les lead devs.
 
 💡 .NET 4.5 . ASP.NET . MVC . WebForms . Kendo UI . Azure Devops . kanban
 ****
 
+2022 . *PANOTA* . CS GROUP . CEA Grenoble
+****
+Dans le cadre d'un projet de modernisation du SI de gestion de la sécurité physique du site de Grenoble, je développe les composants chargés de l'intégration du composant de SCADA avec le reste du SI métier du CEA.
+
+💡 .NET Core 2 . ASP.NET . WebAPI . SQL Server . Panorama
+****
+
 2022-2023 . *Spider* . CS GROUP . STIB/MIVN
 ****
-Suite aux difficultés du projet, j'interviens dans la redéfinition et la mise en application d'un nouveau plan d'architecture système pour la modernisation du SI voyageur pour la _Société des Transports Intercommunaux de Bruxelles_ (STIB). Le SI est basé sur le produit MobilitX conçu et développé par la société DIGINEXT, rachetée par CS GROUP.
+J'interviens dans la redéfinition et la mise en application d'un nouveau plan d'architecture système pour la modernisation du SI voyageur pour la _Société des Transports Intercommunaux de Bruxelles_ (STIB). Le SI est basé sur le produit MobilitX conçu et développé par la société DIGINEXT, rachetée par CS GROUP.
 
 💡 Java 8 . Spring . RHEL 7 . ActiveMQ . Hibernate . Oracle DB . Debian . Angular . ReactJS . ElasticSearch . waterfall
 ****
