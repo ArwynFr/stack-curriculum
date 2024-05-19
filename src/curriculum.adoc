@@ -82,68 +82,18 @@ Fonctions administratives, pédagogiques ou techniques
 
 == Projets les plus significatifs
 
-2007 . *Armée des terres* . CERV . Domaine de Trévarez
+2022-2023 . *Caraïbes* . CS GROUP . CEA Cadarache
 ****
-Développement logiciel et fabrication d'un stéréoscope (type Futuroscope) pour la projection d'une série de stéréoscopies de la première guerre mondiale, dans le cadre d'une exposition sur ce thème. Projet de 2ème année de cycle ingénieur sous la responsabilité d'un ingénieur de recherche du Centre Européen de Réalité Virtuelle (CERV).
+Projet de modernisation du SI de gestion et de traçabilité des déchets radioactifs pour le CEA Cadarache. J'interviens sur ce projet comme architecte pour la mise en place du MVP, l'accompagnement des équipes de développement, ainsi que le déploiement de la plateforme d'intégration du projet.
 
-💡 C++ . OpenGL . Stéréoscopie . VR . Menuiserie . Assemblage PC . Optique . hack . z-buffer
-****
-
-2011-2013 . *Bluesky* . Capgemini . Arkadin
-****
-Refonte du SI de la société Arkadin dans le cadre de sa transformation digitale. Je contribue au développement de plusieurs composants de la couche OSS et facturation du nouveau SI. A l'issue du projet je participe à la réversibilité sur site client.
-
-💡 .NET 4.5 . WCF . Workflow Foundation . MSMQ . SQL Server . Java 8
-****
-2013 . *Bluesky public API* . Capgemini . Arkadin
-****
-A l'issue de la réversibilité du projet précédent, je prends la direction d'une équipe de 4 personnes localisées en France et aux Etats-Unis pour développer une API publique pour l'intégration des services dans les SI clients grands comptes.
-
-💡 .NET 4.5 . ASP.NET WebAPI . scrum
+💡 dotnet 8 . angular 16 . docker . kubernetes . rke2 . azure devops . apache kafka . openapi . keycloak . oidc . oauth . renovate . sonarqube . sql server 2019 . microservices . scrum
 ****
 
-2014 . *OpenNMS* . Capgemini . Orange . ErDF
+2022-2023 . *Spider* . CS GROUP . STIB/MIVN
 ****
-Je contribue au développement et à l'intégration d'un outil de surveillance réseau (NMS) en charge de la supervision des routeurs pour un nouveau réseau de fibres optiques déployées par Orange pour le compte de ErDF. En collaboration avec un collègue en charge de la partie UI/métier, j'assure la communication bas niveau avec les routeurs Alcatel et Cisco.
+J'interviens dans la redéfinition et la mise en application d'un nouveau plan d'architecture système pour la modernisation du système d'information voyageur (SIV) pour la _Société des Transports Intercommunaux de Bruxelles_ (STIB).
 
-💡 Java 8 . RHEL . HA pacemaker . JBoss . TLS . RSA . JMS . SNMP
-****
-
-<<<
-
-2015 . *Consultant BI* . Capgemini
-****
-Je rejoins le cente de service Qlikview de Capgemini. Je participe au développement d'application de dataviz ainsi que de la partie industrialisation et opérations du service : intégration continue, hébergement d'application client, maintenance, ...
-
-💡 Qlikview . Windows . TFS . infrastructure . secops
-****
-
-2016-2017 . *AActeur* . Capgemini . AAtlantide
-****
-Je suis en charge du développement d'un module de messagerie email sécurisée entre professionnels de santé dans le logiciel AActeur. Je suis également chargé de la migration d'une partie de l'application vers le task-based asynchronous pattern (TAP).
-
-💡 .NET 4.5 . WPF . ClickOnce . WCF . sqlite . AES . RSA . Mailbee
-****
-
-2017 . *Logiciel d'interrogration des ouvrages nucléaires en essai* (LIONNE) . CS GROUP . EDF DTG
-****
-A la demande d'EDF, j'effectue une analyse du code de la version 2 de ce logiciel utilisé pour la maintenance décénale des centrales nucléaires françaises. J'effectue également un contre-chiffrage du projet de développement d'une version 3 pour analyse contradictoire de la proposition du mainteneur actuel du logiciel.
-
-💡 .NET 4.0 . Sonarqube
-****
-
-2017-2019 . *Gestion de projet étendue à tous* (GEPETO) . CS GROUP . CEA Grenoble
-****
-Je pilote la tierce maintenance adaptative (incluant la maintenance corrective et évolutive) du logiciel de gestion de projet du CEA Grenoble. A l'aide du directeur de projet nous recrutons une équipe de 8 personnes réparties sur 2 sites géographiques.
-
-💡 .NET 4.5 . ASP.NET MVC . SQL Server . Kendo UI . Azure Devops
-****
-
-2019-2021 . *TMMA* . CS GROUP . CEA Grenoble
-****
-Je prends en charge la gestion de l'architecture logicielle pour l'ensemble du portefeuille de TMA de CS GROUP pour le CEA Grenoble (environ 70 applications). Je pilote plus particulièrement l'activité des consultants SSI (4 collaborateurs) et j'accompagne techniquement les lead devs.
-
-💡 .NET 4.5 . ASP.NET . MVC . WebForms . Kendo UI . Azure Devops . kanban
+💡 Java 8 . Spring . RHEL 7 . ActiveMQ . Hibernate . Oracle DB . Debian . Angular . ReactJS . ElasticSearch . waterfall
 ****
 
 2022 . *PANOTA* . CS GROUP . CEA Grenoble
@@ -153,16 +103,67 @@ Dans le cadre d'un projet de modernisation du SI de gestion de la sécurité phy
 💡 .NET Core 2 . ASP.NET . WebAPI . SQL Server . Panorama
 ****
 
-2022-2023 . *Spider* . CS GROUP . STIB/MIVN
+2019-2021 . *TMMA* . CS GROUP . CEA Grenoble
 ****
-J'interviens dans la redéfinition et la mise en application d'un nouveau plan d'architecture système pour la modernisation du SI voyageur pour la _Société des Transports Intercommunaux de Bruxelles_ (STIB). Le SI est basé sur le produit MobilitX conçu et développé par la société DIGINEXT, rachetée par CS GROUP.
+Je prends en charge la gestion de l'architecture logicielle pour l'ensemble du portefeuille de TMA de CS GROUP pour le CEA Grenoble (environ 70 applications). Je pilote l'activité des consultants SSI et des lead devs de l'équipe.
 
-💡 Java 8 . Spring . RHEL 7 . ActiveMQ . Hibernate . Oracle DB . Debian . Angular . ReactJS . ElasticSearch . waterfall
+💡 .NET 4.5 . ASP.NET . MVC . WebForms . Kendo UI . Azure Devops . kanban
 ****
 
-2022-2023 . *Caraïbes* . CS GROUP . CEA Cadarache
-****
-Projet de modernisation du SI Caraïbes pour le CEA Cadarache, en vue d'en faire une application nationale de gestion et de traçabilité des déchets radioactifs. J'interviens sur ce projet comme architecte pour la mise en place du MVP, ainsi que le déploiement de la plateforme d'intégration du projet.
+<<<
 
-💡 dotnet 8 . angular 16 . docker . kubernetes . rke2 . azure devops . apache kafka . openapi . keycloak . oidc . oauth . renovate . sonarqube . sql server 2019 . microservices . scrum
+2017-2019 . *Gestion de projet étendue à tous* (GEPETO) . CS GROUP . CEA Grenoble
+****
+Je pilote la tierce maintenance adaptative (incluant la maintenance corrective et évolutive) du logiciel de gestion de projet du CEA Grenoble. A l'aide du directeur de projet nous recrutons une équipe de 8 personnes réparties sur 2 sites géographiques.
+
+💡 .NET 4.5 . ASP.NET MVC . SQL Server . Kendo UI . Azure Devops
+****
+
+2017 . *Logiciel d'interrogration des ouvrages nucléaires en essai* (LIONNE) . CS GROUP . EDF DTG
+****
+A la demande d'EDF, j'effectue une analyse du code de la version 2 de ce logiciel utilisé pour la maintenance décénale des centrales nucléaires françaises. J'effectue également un contre-chiffrage du projet de développement d'une version 3 pour analyse contradictoire de la proposition du mainteneur actuel du logiciel.
+
+💡 .NET 4.0 . Sonarqube
+****
+
+2016-2017 . *AActeur* . Capgemini . AAtlantide
+****
+Je suis en charge du développement d'un module de messagerie email sécurisée entre professionnels de santé dans le logiciel AActeur. Je suis également chargé de la migration d'une partie de l'application vers le task-based asynchronous pattern (TAP).
+
+💡 .NET 4.5 . WPF . ClickOnce . WCF . sqlite . AES . RSA . Mailbee
+****
+
+2015 . *Consultant BI* . Capgemini
+****
+Je rejoins le cente de service Qlikview de Capgemini. Je participe au développement d'application de dataviz ainsi que de la partie industrialisation et opérations du service : intégration continue, hébergement d'application client, maintenance, ...
+
+💡 Qlikview . Windows . TFS . infrastructure . secops
+****
+
+2014 . *OpenNMS* . Capgemini . Orange . ErDF
+****
+Je contribue au développement et à l'intégration d'un outil de surveillance réseau (NMS) en charge de la supervision des routeurs pour un nouveau réseau de fibres optiques déployées par Orange pour le compte de ErDF. En collaboration avec un collègue en charge de la partie UI/métier, j'assure la communication bas niveau avec les routeurs Alcatel et Cisco.
+
+💡 Java 8 . RHEL . HA pacemaker . JBoss . TLS . RSA . JMS . SNMP
+****
+
+2013 . *Bluesky public API* . Capgemini . Arkadin
+****
+A l'issue de la réversibilité du projet précédent, je prends la direction d'une équipe de 4 personnes localisées en France et aux Etats-Unis pour développer une API publique pour l'intégration des services dans les SI clients grands comptes.
+
+💡 .NET 4.5 . ASP.NET WebAPI . scrum
+****
+
+2011-2013 . *Bluesky* . Capgemini . Arkadin
+****
+Refonte du SI de la société Arkadin dans le cadre de sa transformation digitale. Je contribue au développement de plusieurs composants de la couche OSS et facturation du nouveau SI. A l'issue du projet je participe à la réversibilité sur site client.
+
+💡 .NET 4.5 . WCF . Workflow Foundation . MSMQ . SQL Server . Java 8
+****
+
+2007 . *Armée des terres* . CERV . Domaine de Trévarez
+****
+Développement logiciel et fabrication d'un stéréoscope (type Futuroscope) pour la projection d'une série de stéréoscopies de la première guerre mondiale, dans le cadre d'une exposition sur ce thème. Projet de 2ème année de cycle ingénieur sous la responsabilité d'un ingénieur de recherche du Centre Européen de Réalité Virtuelle (CERV).
+
+💡 C++ . OpenGL . Stéréoscopie . VR . Menuiserie . Assemblage PC . Optique . hack . z-buffer
 ****
