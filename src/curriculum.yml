@@ -1,9 +1,12 @@
 extends: default-sans-with-font-fallbacks
 base:
   font-size: 8
+link:
+  font-color: #005BB5
 sidebar:
   font-size: 1em
   padding: [2, 8]
+  background-color: #E0F7FA
 heading-h1:
   font-size: 18
 heading-h2:
