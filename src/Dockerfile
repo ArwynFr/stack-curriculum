@@ -4,7 +4,7 @@ COPY ./curriculum.* ./
 RUN asciidoctor curriculum.adoc
 RUN asciidoctor-pdf curriculum.adoc
 
-FROM tdewolff/minify:v2.20.30@sha256:bbbdd3315236ba08e00a534d17fb7bed179e5b92ba8770995ecb096ef4e5dbf8 AS minifier
+FROM tdewolff/minify:v2.20.31@sha256:88ee7c53043c93abaf658b04fe61b2788253b6469f2d04eb8f181f7fdc91cfc3 AS minifier
 WORKDIR /src/curriculum
 COPY --from=build /src/curriculum/curriculum.html ./
 RUN for ext in "css" "js" "html"; do find . -name "*.$ext" -exec minify -o {} {} \;; done
