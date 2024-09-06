@@ -4,8 +4,8 @@
 
 [.text-center]
 ****
-🏢 12 ans professionnel .
-💻 28 ans amateur .
+🏢 13 ans professionnel .
+💻 29 ans amateur .
 icon:stack-overflow[] https://stackoverflow.com/users/6092856/arwynfr[ArwynFr] .
 icon:github[] https://github.com/ArwynFr[ArwynFr] .
 https://ahupond.dev/curriculum.pdf[icon:file-pdf-o[]] +
@@ -20,65 +20,55 @@ https://ahupond.dev/curriculum.pdf[icon:file-pdf-o[]] +
 
 == Curriculum
 
-[cols="2,5,7"]
+[cols="10,2" frame="none", grid="none"]
 |===
 
-| 2017-2024
-|
-*🏢 Architecte solutions* +
-CS GROUP
-|
-Comités d'architecture . Revues de code . Expert technique +
+| 🏢 *Enseignant vacataire* . _Université Grenoble-Alpes_ +
+Vacations ponctuelles . Cours magistral .
+Informatique . Management
+| 2023 - ce jour
+
+| 📜 *ITIL Foundation v4* . _Peoplecert_ +
+Certification pour les professionnels impliqués dans la fourniture et le support de services informatiques.
+| 2021
+
+| 🏢 *Architecte solutions* . _CS Group_ +
+Comités d'architecture . Revues de code . Expertise technique .
 DevOps . Management . Avant-vente . SSI
+| 2017 - ce jour
 
-| Nov 2023
-|
-*🏢 Enseignant vacataire* +
-Université Grenoble-Alpes
-|
-Vacations ponctuelles . Cours magistral +
-Informatique et Management
-
-| 2011-2017
-|
-*🏢 Consultant IT* +
-Capgemini Telecom Services
-|
-Développement applicatif dotnet, java, qlikview +
-Chef d'équipe développement . Architecte logiciel junior
-
-| 1995-2024
-|
-*💻 Informaticien amateur*
-|
-Développement divers applications et sites . CICD . devops +
-Administration systèmes et réseaux
-
-| 2014-2017
-|
-*✋ Bénévole* +
-Protection Civile de l'Isère
-|
-Equipier secouriste · Maintenance des véhicules +
+| ✋ *Bénévole* . _Protection Civile de l'Isère_ +
+Equipier secouriste · Maintenance des véhicules .
 Formateur à l'emploi des véhicules d'urgence
+| 2014 - 2017
 
-| 2006-2024
-|
-*✋ Bénévole* +
-Scouts et Guides de France
-|
-Directeur de camps scouts · Directeur d'actions de formation +
-Fonctions administratives, pédagogiques ou techniques
+| 🏢 *Consultant IT* . _Capgemini Telecom Services_ +
+Développement . dotnet . java . qlikview .
+Chef d'équipe développement . Architecte logiciel junior
+| 2011 - 2017
 
+| 💼 *Ingénieur diplômé ENIB* . _Ecole Nationale d'Ingénieurs de Brest_ +
+Ingénieur généraliste . Filière informatique
 | 2011
-| *💼 Ingénieur diplômé ENI Brest*
-| Informatique · Electronique · Mécatronique
 
+| 💼 *BTS IRIS* . _Lycée St Michel_ . Annecy +
+Mention très bien · Major académique
 | 2007
-| *💼 BTS Informatique et Réseau*
-| Mention très bien · Major académique
+
+| ✋ *Bénévole* . _Scouts et Guides de France_ +
+Directeur d'actions de formation .
+Fonctions administratives, pédagogiques ou techniques
+| 2006 - 2024
+
+| *💻 Informaticien amateur* . A titre personnel +
+Développement divers applications et sites . CICD . devops .
+Administration systèmes et réseaux
+| 1995 - ce jour
+
 
 |===
+
+<<<
 
 == Projets les plus significatifs
 
@@ -110,8 +100,6 @@ Je prends en charge la gestion de l'architecture logicielle pour l'ensemble du p
 💡 .NET 4.5 . ASP.NET . MVC . WebForms . Kendo UI . Azure Devops . kanban
 ****
 
-<<<
-
 2017-2019 . *Gestion de projet étendue à tous* (GEPETO) . CS GROUP . CEA Grenoble
 ****
 Je pilote la tierce maintenance adaptative (incluant la maintenance corrective et évolutive) du logiciel de gestion de projet du CEA Grenoble. A l'aide du directeur de projet nous recrutons une équipe de 8 personnes réparties sur 2 sites géographiques.
@@ -132,6 +120,8 @@ Je suis en charge du développement d'un module de messagerie email sécurisée 
 
 💡 .NET 4.5 . WPF . ClickOnce . WCF . sqlite . AES . RSA . Mailbee
 ****
+
+<<<
 
 2015 . *Consultant BI* . Capgemini
 ****
