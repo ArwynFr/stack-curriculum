@@ -1,21 +1,20 @@
-name: Continuous Deployment
+name: deployment
 
 on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - 'src/**'
-      - 'kube/**'
 
 jobs:
-  release:
-    uses: arwynfr/arwynfr/.github/workflows/rke2-deployment-generic.yaml@main
-    with:
-      sources: ./src
-      resources: ./kube
-      version: ${{ github.run_id }}
-    secrets:
-      token: ${{ secrets.token }}
-      server: ${{ secrets.server }}
-      authority: ${{ secrets.authority }}
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - shell: pwsh
+        run: build/Start-Deployment.ps1
+        with:
+          GH_TOKEN: ${{ github.token }}
+          KUBE_TOKEN: ${{ secret.token }}
+          KUBE_SERVER: ${{ secret.server }}
+          KUBE_AUTHORITY: ${{ secret.authority }}
