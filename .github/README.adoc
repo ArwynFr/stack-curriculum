@@ -1,0 +1,7 @@
+= Curriculum
+
+This project is the source for https://www.ahupond.dev
+
+This is a personnal website, it does not expect external contributions 😊
+
+image:https://img.shields.io/github/v/release/arwynfr/stack-curriculum?sort=semver&style=for-the-badge[GitHub Release] image:https://img.shields.io/github/license/arwynfr/stack-curriculum?style=for-the-badge[GitHub License]

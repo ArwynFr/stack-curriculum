@@ -1,0 +1,5 @@
+= Versioning strategy
+
+Major update:: Change to the document substance (new experience)
+Minor update:: Change to the document format or typos
+Patch update:: No intended change (secops update)
