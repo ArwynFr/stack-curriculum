@@ -13,7 +13,7 @@ jobs:
 
       - shell: pwsh
         run: build/Start-Deployment.ps1
-        with:
+        env:
           GH_TOKEN: ${{ github.token }}
           KUBE_TOKEN: ${{ secret.token }}
           KUBE_SERVER: ${{ secret.server }}
