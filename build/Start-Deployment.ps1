@@ -18,7 +18,7 @@ if ($PSCmdlet.ShouldProcess($SourcesPath, 'docker build')) {
 }
 
 if ($PSCmdlet.ShouldProcess('ghcr.io', 'docker login')) {
-  docker login ghcr.io
+  $env:GH_TOKEN | docker login ghcr.io --password-stdin --username arwynfr
 }
 
 if ($PSCmdlet.ShouldProcess($DockerImage, 'docker push')) {
