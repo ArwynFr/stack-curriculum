@@ -14,7 +14,7 @@ jobs:
       - shell: pwsh
         run: build/Start-Deployment.ps1 -Verbose
         env:
-          GH_TOKEN: ${{ secrets.github_token }}
+          GH_TOKEN: ${{ github.token }}
           KUBE_TOKEN: ${{ secrets.token }}
           KUBE_SERVER: ${{ secrets.server }}
           KUBE_AUTHORITY: ${{ secrets.authority }}

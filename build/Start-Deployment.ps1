@@ -14,12 +14,14 @@ $Manifest = Join-Path $KubePath kustomization.yaml
 $Authority = Join-Path $RootPath ca.crt
 
 if ($PSCmdlet.ShouldProcess($SourcesPath, 'docker build')) {
-  "docker build $SourcesPath --tag $DockerImage" | Write-Verbose
   docker build $SourcesPath --tag $DockerImage
 }
 
+if ($PSCmdlet.ShouldProcess('ghcr.io', 'docker login')) {
+  docker login ghcr.io
+}
+
 if ($PSCmdlet.ShouldProcess($DockerImage, 'docker push')) {
-  "docker push $DockerImage" | Write-Verbose
   docker push $DockerImage
 }
 
