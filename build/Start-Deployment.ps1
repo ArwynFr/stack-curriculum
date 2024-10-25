@@ -14,10 +14,12 @@ $Manifest = Join-Path $KubePath kustomization.yaml
 $Authority = Join-Path $RootPath ca.crt
 
 if ($PSCmdlet.ShouldProcess($SourcesPath, 'docker build')) {
+  "docker build $SourcesPath --tag $DockerImage" | Write-Verbose
   docker build $SourcesPath --tag $DockerImage
 }
 
 if ($PSCmdlet.ShouldProcess($DockerImage, 'docker push')) {
+  "docker push $DockerImage" | Write-Verbose
   docker push $DockerImage
 }
 
@@ -29,5 +31,6 @@ images:
 $env:KUBE_AUTHORITY | Set-Content $Authority
 
 if ($PSCmdlet.ShouldProcess($DockerImage, 'kubectl apply')) {
+  "kubectl apply --kustomize=""$KubePath"" --token=""$env:KUBE_TOKEN"" --server=""$env:KUBE_SERVER"" --certificate-authority=""$Authority""" | Write-Verbose
   kubectl apply --kustomize="$KubePath" --token="$env:KUBE_TOKEN" --server="$env:KUBE_SERVER" --certificate-authority="$Authority"
 }
