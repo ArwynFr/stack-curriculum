@@ -15,10 +15,12 @@ $Authority = Join-Path $RootPath ca.crt
 
 if ($PSCmdlet.ShouldProcess($SourcesPath, 'docker build')) {
   docker build $SourcesPath --tag $DockerImage
+  if (-not $?) { throw 'docker build failed' }
 }
 
 if ($PSCmdlet.ShouldProcess($DockerImage, 'docker push')) {
   docker push $DockerImage
+  if (-not $?) { throw 'docker push failed' }
 }
 
 "
@@ -31,4 +33,5 @@ $env:KUBE_AUTHORITY | Set-Content $Authority
 if ($PSCmdlet.ShouldProcess($DockerImage, 'kubectl apply')) {
   "kubectl apply --kustomize=""$KubePath"" --token=""$env:KUBE_TOKEN"" --server=""$env:KUBE_SERVER"" --certificate-authority=""$Authority""" | Write-Verbose
   kubectl apply --kustomize="$KubePath" --token="$env:KUBE_TOKEN" --server="$env:KUBE_SERVER" --certificate-authority="$Authority"
+  if (-not $?) { throw 'kubectl apply failed' }
 }
