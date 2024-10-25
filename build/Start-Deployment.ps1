@@ -17,10 +17,6 @@ if ($PSCmdlet.ShouldProcess($SourcesPath, 'docker build')) {
   docker build $SourcesPath --tag $DockerImage
 }
 
-if ($PSCmdlet.ShouldProcess('ghcr.io', 'docker login')) {
-  $env:GH_TOKEN | docker login ghcr.io --password-stdin --username arwynfr
-}
-
 if ($PSCmdlet.ShouldProcess($DockerImage, 'docker push')) {
   docker push $DockerImage
 }
