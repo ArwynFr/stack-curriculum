@@ -123,6 +123,8 @@ Je prends en charge la gestion de l'architecture logicielle pour l'ensemble du p
 💡 .NET 4.5 . ASP.NET . MVC . WebForms . Kendo UI . Azure Devops . kanban
 ****
 
+<<<
+
 2017-2019 . *Gestion de projet étendue à tous* (GEPETO) . CS GROUP . CEA Grenoble
 ****
 Je pilote la tierce maintenance adaptative (incluant la maintenance corrective et évolutive) du logiciel de gestion de projet du CEA Grenoble. A l'aide du directeur de projet nous recrutons une équipe de 8 personnes réparties sur 2 sites géographiques.
@@ -143,8 +145,6 @@ Je suis en charge du développement d'un module de messagerie email sécurisée 
 
 💡 .NET 4.5 . WPF . ClickOnce . WCF . sqlite . AES . RSA . Mailbee
 ****
-
-<<<
 
 2015 . *Consultant BI* . Capgemini
 ****
