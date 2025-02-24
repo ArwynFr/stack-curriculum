@@ -23,6 +23,10 @@ https://ahupond.dev/curriculum.pdf[icon:file-pdf-o[]] +
 [cols="10,2" frame="none", grid="none"]
 |===
 
+| 🏢 *Développeur .NET* . _Septeo Solutions Notaires_ +
+Développement . dotnet . Azure Devops
+| 2024 - ce jour
+
 | 🏢 *Enseignant vacataire* . _Université Grenoble-Alpes_ +
 Vacations ponctuelles . Cours magistral .
 Informatique . Management
@@ -35,7 +39,7 @@ Certification pour les professionnels impliqués dans la fourniture et le suppor
 | 🏢 *Architecte solutions* . _CS Group_ +
 Comités d'architecture . Revues de code . Expertise technique .
 DevOps . Management . Avant-vente . SSI
-| 2017 - ce jour
+| 2017 - 2024
 
 | ✋ *Bénévole* . _Protection Civile de l'Isère_ +
 Equipier secouriste · Maintenance des véhicules .
@@ -71,6 +75,25 @@ Administration systèmes et réseaux
 <<<
 
 == Projets les plus significatifs
+
+2024-2025 . *iNot Cloud & Saas* . Septeo Solutions Notaires
+****
+Au sein de la tribu Actes, je contribue avec le reste de l'équipe à la MCO de la solution historique iNot. Ce logiciel est utilisé par une part majoritaire de la profession notariale pour rédiger des actes notariés et accompagner leurs clients.
+
+💡 dotnet 8 . dotnet 4.8 . docker . swarm . azure devops . hangfire . openapi . oidc . oauth . sql server 2019 . kanban . scrum
+****
+
+2024 . *AKonsulting* . CS GROUP . AKonsulting
+****
+Projet de conception et d'assistance à maitrise d'ouvrage d'un logiciel de comptabilité nucléaire pour la société AKonsulting, spécialisée dans la comptabilité nucléaire de petits détenteur de matière nucléaire. Ces structures détiennent généralement de petites quantités de matière, rarement échangées, ce qui ne justifie pas la mise en place d'une comptabilité interne. Elles délèguent cette obligation réglementaire à un "comptable nucléaire" qui doit pouvoir assurer leur comptabilité et s'interopérer avec les SI des autorités nationales et européennes.
+****
+
+2024 . *Corrosion sous contrainte* . CS GROUP . EDF
+****
+Dans le cadre d'un chantier national visant à détecter des microfissures au niveau des soudures des circuits primaires des centrales nucléaires, CS GROUP développe un logiciel permettant à des experts métier d'annoter des clichés ultrasonnores des soudures. L'objectif est de développer un modèle d'IA spécifique, capable d'identifier les clichés de mauvaise qualité, voire à terme de détecter la présence des microfissures, afin de réduire le délai dans l'analyse du parc. J'interviens sur ce projet comme architecte et sur les problèmes de déploiement et d'intégration.
+
+💡 dotnet 8 . postgresql . python
+****
 
 2022-2023 . *Caraïbes* . CS GROUP . CEA Cadarache
 ****
@@ -125,7 +148,7 @@ Je suis en charge du développement d'un module de messagerie email sécurisée 
 
 2015 . *Consultant BI* . Capgemini
 ****
-Je rejoins le cente de service Qlikview de Capgemini. Je participe au développement d'application de dataviz ainsi que de la partie industrialisation et opérations du service : intégration continue, hébergement d'application client, maintenance, ...
+Je rejoins le cente de service Qlikview de Capgemini. Je participe au développement d'applications de dataviz ainsi que de la partie industrialisation et opérations du service : intégration continue, hébergement d'application client, maintenance, ...
 
 💡 Qlikview . Windows . TFS . infrastructure . secops
 ****
