@@ -1,6 +1,7 @@
 = Adrien HUPOND: Architecte solutions
 :pdf-theme: ./curriculum.yml
 :icons: font
+:favicon:
 
 [.text-center]
 ****

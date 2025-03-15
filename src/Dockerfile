@@ -14,3 +14,4 @@ WORKDIR /usr/share/nginx/html
 COPY --from=minifier /src/curriculum/curriculum.html index.html
 COPY --from=build /src/curriculum/curriculum.pdf ./
 COPY ./*.txt ./
+COPY ./favicon.ico ./
