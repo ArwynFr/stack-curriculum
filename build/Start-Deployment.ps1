@@ -29,7 +29,7 @@ generatorOptions:
 secretGenerator:
 - name: htpassword
   literals:
-  - auth=${env:HTPASWD}
+  - auth=${env:HTPASSWD}
 images:
 - name: app
   newName: $ImageName
