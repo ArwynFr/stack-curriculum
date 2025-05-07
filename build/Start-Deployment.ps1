@@ -24,6 +24,12 @@ if ($PSCmdlet.ShouldProcess($DockerImage, 'docker push')) {
 }
 
 "
+generatorOptions:
+  disableNameSuffixHash: true
+secretGenerator:
+- name: htpassword
+  literals:
+  - auth=${env:HTPASWD}
 images:
 - name: app
   newName: $ImageName

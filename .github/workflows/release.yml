@@ -24,3 +24,4 @@ jobs:
           KUBE_TOKEN: ${{ secrets.token }}
           KUBE_SERVER: ${{ secrets.server }}
           KUBE_AUTHORITY: ${{ secrets.authority }}
+          HTPASSWD: ${{ secrets.htpasswd }}
