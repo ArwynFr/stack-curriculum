@@ -9,7 +9,7 @@ WORKDIR /src/curriculum
 COPY --from=build /src/curriculum/curriculum.html ./
 RUN for ext in "css" "js" "html"; do find . -name "*.$ext" -exec minify -o {} {} \;; done
 
-FROM nginxinc/nginx-unprivileged:1.29.0-alpine-slim@sha256:111ba7c204aea8b2c8767feae04d9703a64369a82b6982a9ad21cb12bd4946f2 AS runtime
+FROM nginxinc/nginx-unprivileged:1.29.0-alpine-slim@sha256:53a8c04ca5a8bc5ea5eb90c88f95355fc22b7ae23f2db118c061e2b2e44f5570 AS runtime
 WORKDIR /usr/share/nginx/html
 COPY --from=minifier /src/curriculum/curriculum.html index.html
 COPY --from=build /src/curriculum/curriculum.pdf ./
