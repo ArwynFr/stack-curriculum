@@ -15,7 +15,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - shell: pwsh
         run: build/Start-Deployment.ps1 -Verbose
