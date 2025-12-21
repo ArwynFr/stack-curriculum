@@ -11,6 +11,4 @@ jobs:
     steps:
       - name: Create GH release
         shell: pwsh
-        run: |
-          $TargetVersion = ./build/version/New-ReleaseVersion.ps1
-          gh release create $TargetVersion --generate-notes
+        run: gh release create $(./build/version/New-ReleaseVersion.ps1) --generate-notes
