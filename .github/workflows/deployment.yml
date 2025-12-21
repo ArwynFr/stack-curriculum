@@ -2,39 +2,57 @@ name: deployment
 
 on:
   workflow_dispatch:
-  release:
-    types: [released]
+  push:
+    branches: [main]
 
 jobs:
   deployment:
     runs-on: ubuntu-latest
     steps:
-      - uses: docker/login-action@v3
+      - name: 🔓 Docker login
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
-      - uses: actions/checkout@v6
+      - name: 🔨 Git checkout
+        uses: actions/checkout@v6
+
+      - name: 🔨 Version number
+        run: ./build/version/New-ReleaseVersion.ps1
+        shell: pwsh
+        id: version
+        env:
+          GH_TOKEN: ${{ github.token }}
+      
+      - name: 🔨 CA certificate
+        run: echo '${{ secrets.authority }}' > ca.crt
 
       - name: 📦 Build Docker image
-        run: docker build ./src --tag 'ghcr.io/arwynfr/stack-curriculum:${{ github.ref }}'
+        run: docker build ./src --tag 'ghcr.io/arwynfr/stack-curriculum:${{ steps.version.outputs.version }}'
 
       - name: 📦 Package Helm chart
-        run: helm package ./build/helm --version ${{ github.ref }}
+        run: helm package ./build/helm --version ${{ steps.version.outputs.version }}
 
       - name: 📌 Push Docker image
-        run: docker push 'ghcr.io/arwynfr/stack-curriculum:${{ github.ref }}'
+        run: docker push 'ghcr.io/arwynfr/stack-curriculum:${{ steps.version.outputs.version }}'
 
       - name: 📌 Push Helm chart
-        run: helm push 'stack-curriculum-helm-${{ github.ref }}.tgz' 'oci://ghcr.io/arwynfr/stack-curriculum-helm:${{ github.ref }}'
+        run: helm push 'stack-curriculum-helm-${{ steps.version.outputs.version }}.tgz' 'oci://ghcr.io/arwynfr/stack-curriculum-helm:${{ steps.version.outputs.version }}'
 
       - name: 🚀 Upgrade Helm chart
         run: >
           helm upgrade stack-curriculum oci://ghcr.io/arwynfr/stack-curriculum-helm --install --force
-          --version ${{ github.ref }}
+          --version ${{ steps.version.outputs.version }}
           --kube-apiserver ${{ secrets.server }}
           --kube-token ${{ secrets.token }}
-          --kube-ca-file ${{ secrets.authority }}
+          --kube-ca-file ca.crt
           --set htpasswd=${{ secrets.htpasswd }}
           --namespace ${{ secrets.namespace }}
+
+      - name: 📣 Create GH release
+        shell: pwsh
+        run: gh release create ${{ steps.version.outputs.version }} --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,3 +1,6 @@
+[CmdletBinding()]
+param ()
+
 [version]$CurrentDate = [version]::new((Get-Date -Format yy), (Get-Date).DayOfYear, 0)
 [version]$CurrentVersion = (gh release list --limit 1 --json tagName --jq '.[0].tagName')
 
@@ -7,4 +10,4 @@ $TargetVersion = if ($CurrentVersion -ge $CurrentDate) {
   $CurrentDate
 }
 
-return $TargetVersion.ToString()
+"version=${TargetVersion}" >> $env:GITHUB_OUTPUT
