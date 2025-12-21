@@ -25,7 +25,7 @@ jobs:
         id: version
         env:
           GH_TOKEN: ${{ github.token }}
-      
+
       - name: 🔨 CA certificate
         run: echo '${{ secrets.authority }}' > ca.crt
 
@@ -39,7 +39,7 @@ jobs:
         run: docker push 'ghcr.io/arwynfr/stack-curriculum:${{ steps.version.outputs.version }}'
 
       - name: 📌 Push Helm chart
-        run: helm push 'stack-curriculum-helm-${{ steps.version.outputs.version }}.tgz' 'oci://ghcr.io/arwynfr/stack-curriculum-helm:${{ steps.version.outputs.version }}'
+        run: helm push 'stack-curriculum-helm-${{ steps.version.outputs.version }}.tgz' oci://ghcr.io/arwynfr
 
       - name: 🚀 Upgrade Helm chart
         run: >
