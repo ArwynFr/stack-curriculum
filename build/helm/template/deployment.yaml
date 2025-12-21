@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: curriculum
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: curriculum
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: curriculum
+  template:
+    metadata:
+      labels:
+        app: curriculum
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/arwynfr/stack-curriculum:{{ .Values.dockerTag | default .Release.Version }}
+          ports:
+            - containerPort: 8080

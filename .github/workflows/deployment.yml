@@ -1,0 +1,40 @@
+name: deployment
+
+on:
+  workflow_dispatch:
+  release:
+    types: [released]
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - uses: actions/checkout@v6
+
+      - name: 📦 Build Docker image
+        run: docker build ./src --tag 'ghcr.io/arwynfr/stack-curriculum:${{ github.ref }}'
+
+      - name: 📦 Package Helm chart
+        run: helm package ./build/helm --version ${{ github.ref }}
+
+      - name: 📌 Push Docker image
+        run: docker push 'ghcr.io/arwynfr/stack-curriculum:${{ github.ref }}'
+
+      - name: 📌 Push Helm chart
+        run: helm push 'stack-curriculum-helm-${{ github.ref }}.tgz' 'oci://ghcr.io/arwynfr/stack-curriculum-helm:${{ github.ref }}'
+
+      - name: 🚀 Upgrade Helm chart
+        run: >
+          helm upgrade stack-curriculum oci://ghcr.io/arwynfr/stack-curriculum-helm --install --force
+          --version ${{ github.ref }}
+          --kube-apiserver ${{ secrets.server }}
+          --kube-token ${{ secrets.token }}
+          --kube-ca-file ${{ secrets.authority }}
+          --set htpasswd=${{ secrets.htpasswd }}
+          --namespace ${{ secrets.namespace }}
