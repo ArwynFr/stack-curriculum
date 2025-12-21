@@ -43,7 +43,8 @@ jobs:
 
       - name: 🚀 Upgrade Helm chart
         run: >
-          helm upgrade stack-curriculum oci://ghcr.io/arwynfr/stack-curriculum-helm --install --force
+          helm upgrade stack-curriculum oci://ghcr.io/arwynfr/stack-curriculum-helm
+          --install --force --take-ownership
           --version ${{ steps.version.outputs.version }}
           --kube-apiserver ${{ secrets.server }}
           --kube-token ${{ secrets.token }}
