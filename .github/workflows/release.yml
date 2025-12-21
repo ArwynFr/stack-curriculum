@@ -14,3 +14,5 @@ jobs:
       - name: Create GH release
         shell: pwsh
         run: gh release create $(./build/version/New-ReleaseVersion.ps1) --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}
