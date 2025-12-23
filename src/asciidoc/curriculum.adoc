@@ -6,20 +6,26 @@
 
 [.text-center]
 ****
-🏢 15 ans d'expérience professionnelle +
+🏢 15 ans d'expérience professionnelle .
 https://www.linkedin.com/in/ahupond/[LinkedIn] .
-https://github.com/ArwynFr[GitHub] .
-📄 https://ahupond.dev/curriculum.pdf[Version imprimable] +
-*Français* langue maternelle .
+https://github.com/ArwynFr[GitHub] +
 *Anglais* niveau C1 .
 *Allemand* niveau B1 .
-*Japonais* niveau A1
+*Japonais* niveau A1 +
+ifeval::["{backend}" == "html5"]
+🖨️ https://ahupond.dev/curriculum.pdf[Télécharger la version imprimable]
+endif::[]
+ifeval::["{backend}" == "pdf"]
+🌐 https://ahupond.dev/[Consulter la version en ligne]
+endif::[]
 ****
 
 == Curriculum
 
 [cols="10,2" frame="none", grid="none"]
 |===
+
+a| === Expérience |
 
 | 🏢 *Développeur .NET* . _Septeo Solutions Notaires_ +
 Développement . dotnet . Azure Devops
@@ -30,24 +36,21 @@ Vacations ponctuelles . Cours magistral .
 Informatique . Management
 | 2023 - ce jour
 
-| 📜 *ITIL Foundation v4* . _Peoplecert_ +
-Certification pour les professionnels impliqués dans la fourniture et le support de services informatiques.
-| 2021
-
 | 🏢 *Architecte solutions* . _CS Group_ +
 Comités d'architecture . Revues de code . Expertise technique .
 DevOps . Management . Avant-vente . SSI
 | 2017 - 2024
 
-| ✋ *Bénévole* . _Protection Civile de l'Isère_ +
-Equipier secouriste · Maintenance des véhicules .
-Formateur à l'emploi des véhicules d'urgence
-| 2014 - 2017
-
 | 🏢 *Consultant IT* . _Capgemini Telecom Services_ +
 Développement . dotnet . java . qlikview .
 Chef d'équipe développement . Architecte logiciel junior
 | 2011 - 2017
+
+a| === Formation |
+
+| 📜 *ITIL Foundation v4* . _Peoplecert_ +
+Certification pour les professionnels impliqués dans la fourniture et le support de services informatiques.
+| 2021
 
 | 💼 *Ingénieur diplômé ENIB* . _Ecole Nationale d'Ingénieurs de Brest_ +
 Ingénieur généraliste . Filière informatique
@@ -56,6 +59,13 @@ Ingénieur généraliste . Filière informatique
 | 💼 *BTS IRIS* . _Lycée St Michel_ . Annecy +
 Mention très bien · Major académique
 | 2007
+
+a| === Bénévolat |
+
+| ✋ *Bénévole* . _Protection Civile de l'Isère_ +
+Equipier secouriste · Maintenance des véhicules .
+Formateur à l'emploi des véhicules d'urgence
+| 2014 - 2017
 
 | ✋ *Bénévole* . _Scouts et Guides de France_ +
 Directeur d'actions de formation .
