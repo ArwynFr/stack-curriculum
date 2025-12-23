@@ -1,22 +1,19 @@
 = Adrien HUPOND: Architecte solutions
 :pdf-theme: ./curriculum.yml
-:icons: font
+:!webfonts:
+:docinfo: shared
 :favicon:
 
 [.text-center]
 ****
-🏢 13 ans professionnel .
-💻 29 ans amateur .
-icon:stack-overflow[] https://stackoverflow.com/users/6092856/arwynfr[ArwynFr] .
-icon:github[] https://github.com/ArwynFr[ArwynFr] .
-https://ahupond.dev/curriculum.pdf[icon:file-pdf-o[]] +
-🌐 11 rue du Drac, 38000 Grenoble .
-📧 adrien.hupond@gmail.com .
-📞 06 76 25 57 00 +
+🏢 15 ans d'expérience professionnelle +
+https://www.linkedin.com/in/ahupond/[LinkedIn] .
+https://github.com/ArwynFr[GitHub] .
+📄 https://ahupond.dev/curriculum.pdf[Version imprimable] +
 *Français* langue maternelle .
-*Anglais* bilingue .
-*Allemand* conversations simples .
-*Japonais* notions
+*Anglais* niveau C1 .
+*Allemand* niveau B1 .
+*Japonais* niveau A1
 ****
 
 == Curriculum
@@ -76,13 +73,6 @@ Administration systèmes et réseaux
 <<<
 
 == Projets les plus significatifs
-
-2024-2025 . *iNot Cloud & Saas* . Septeo Solutions Notaires
-****
-Au sein de la tribu Actes, je contribue avec le reste de l'équipe à la MCO de la solution historique iNot. Ce logiciel est utilisé par une part majoritaire de la profession notariale pour rédiger des actes notariés et accompagner leurs clients.
-
-💡 dotnet 8 . dotnet 4.8 . docker . swarm . azure devops . hangfire . openapi . oidc . oauth . sql server 2019 . kanban . scrum
-****
 
 2024 . *AKonsulting* . CS GROUP . AKonsulting
 ****
