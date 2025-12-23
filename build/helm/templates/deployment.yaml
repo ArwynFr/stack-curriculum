@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/arwynfr/stack-curriculum:{{ .Values.dockerTag | default .Chart.Version }}
+          image: "{{ .Values.dockerImage }}:{{ .Values.dockerTag | default .Chart.Version }}"
           ports:
             - containerPort: 8080
