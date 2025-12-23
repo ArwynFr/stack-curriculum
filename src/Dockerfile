@@ -1,7 +1,6 @@
 FROM asciidoctor/docker-asciidoctor:1.101.0@sha256:7aae24f5d37b4aa543db08cb118257626d6b397b39624bcb07f1feb13aab8d03 AS asciidoc
 WORKDIR /src/curriculum
-COPY ./curriculum.* ./
-COPY ./docinfo.* ./
+COPY ./asciidoc ./
 RUN asciidoctor curriculum.adoc
 RUN asciidoctor-pdf curriculum.adoc
 
@@ -15,5 +14,4 @@ FROM nginxinc/nginx-unprivileged:1.29.3-alpine-slim@sha256:d9def221bf58500eb9d2f
 WORKDIR /usr/share/nginx/html
 COPY --from=minifier /src/curriculum/curriculum.html index.html
 COPY --from=asciidoc /src/curriculum/curriculum.pdf ./
-COPY ./*.txt ./
-COPY ./favicon.ico ./
+COPY ./www ./
