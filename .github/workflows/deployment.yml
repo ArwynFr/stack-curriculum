@@ -5,6 +5,16 @@ on:
   push:
     branches: [main]
 
+env:
+  OCI_REGISTRY: ghcr.io
+  HELM_RELEASE: curriculum
+  KUBE_NAMESPACE: ahupond-dev
+  PACKAGE_DOCKER: curriculum-docker
+  PACKAGE_HELM: curriculum-helm
+  PATH_CA_FILE: ./ca.crt
+  PATH_DOCKER_CONTEXT: ./src
+  PATH_HELM_CHART: ./build/helm
+
 jobs:
   deployment:
     runs-on: ubuntu-latest
@@ -12,7 +22,7 @@ jobs:
       - name: 🔓 Docker login
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
+          registry: ${{ env.OCI_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
@@ -27,30 +37,30 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: 🔨 CA certificate
-        run: echo '${{ secrets.authority }}' > ca.crt
+        run: echo '${{ secrets.AUTHORITY }}' > ${PATH_CA_FILE}
 
       - name: 📦 Build Docker image
-        run: docker build ./src --tag 'ghcr.io/arwynfr/stack-curriculum:${{ steps.version.outputs.version }}'
+        run: docker build ${PATH_DOCKER_CONTEXT} --tag ${OCI_REGISTRY}/${GITHUB_REPOSITORY@L}/${PACKAGE_DOCKER}:${{ steps.version.outputs.version }}
 
       - name: 📦 Package Helm chart
-        run: helm package ./build/helm --version ${{ steps.version.outputs.version }}
+        run: helm package ${PATH_HELM_CHART} --version ${{ steps.version.outputs.version }}
 
       - name: 📌 Push Docker image
-        run: docker push 'ghcr.io/arwynfr/stack-curriculum:${{ steps.version.outputs.version }}'
+        run: docker push ${OCI_REGISTRY}/${GITHUB_REPOSITORY@L}/${PACKAGE_DOCKER}:${{ steps.version.outputs.version }}
 
       - name: 📌 Push Helm chart
-        run: helm push 'stack-curriculum-helm-${{ steps.version.outputs.version }}.tgz' oci://ghcr.io/arwynfr
+        run: helm push ${PACKAGE_HELM}-${{ steps.version.outputs.version }}.tgz oci://${OCI_REGISTRY}/${GITHUB_REPOSITORY@L}
 
       - name: 🚀 Upgrade Helm chart
         run: >
-          helm upgrade stack-curriculum oci://ghcr.io/arwynfr/stack-curriculum-helm
+          helm upgrade ${HELM_RELEASE} oci://${OCI_REGISTRY}/${GITHUB_REPOSITORY@L}/${PACKAGE_HELM}
           --install --force --take-ownership
           --version ${{ steps.version.outputs.version }}
-          --kube-apiserver ${{ secrets.server }}
-          --kube-token ${{ secrets.token }}
-          --kube-ca-file ca.crt
-          --set htpasswd=${{ secrets.htpasswd }}
-          --namespace ${{ secrets.namespace }}
+          --kube-apiserver ${{ secrets.SERVER }}
+          --kube-token ${{ secrets.TOKEN }}
+          --kube-ca-file ${PATH_CA_FILE}
+          --set htpasswd=${{ secrets.HTPASSWD }}
+          --namespace ${KUBE_NAMESPACE}
 
       - name: 📣 Create GH release
         shell: pwsh
