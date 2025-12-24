@@ -1,12 +1,12 @@
-= Adrien HUPOND: Architecte solutions
+= Adrien HUPOND: Architecte transformation digitale
 :pdf-theme: ./curriculum.yml
 :!webfonts:
 :docinfo: shared
 :favicon:
 
-[.text-center]
-****
-🏢 15 ans d'expérience professionnelle .
+
+|===
+^| 🏢 15 ans d'expérience professionnelle .
 https://www.linkedin.com/in/ahupond/[LinkedIn] .
 https://github.com/ArwynFr[GitHub] +
 *Anglais* niveau C1 .
@@ -18,32 +18,31 @@ endif::[]
 ifeval::["{backend}" == "pdf"]
 🌐 https://ahupond.dev/[Consulter la version en ligne]
 endif::[]
-****
+|===
 
 == Curriculum
+
+Architecte de systèmes critiques, je combine 15 ans d'ingénierie « logiciels et systèmes » avec une solide expertise en management d'équipes et cybersécurité. Mon parcours au sein d'environnements réglementés (énergie, transports, légal, santé) m'a permis de développer une vision globale du risque numérique. Spécialiste de la transformation organisationnelle et de la résilience des infrastructures, j'accompagne la modernisation des SI en garantissant l'alignement stratégique, la sécurité (PSSI) et la continuité de service (PCA/PRA), ainsi que l'alignement technique, de l'organisation, et de la valeur produite.
 
 [cols="10,2" frame="none", grid="none"]
 |===
 
 a| === Expérience |
 
-| 🏢 *Développeur .NET* . _Septeo Solutions Notaires_ +
-Développement . dotnet . Azure Devops
+| 🏢 *Architecte transformation digitale* . _Septeo Solutions Notaires / Genapi_ +
+Transformation organisationnelle . Architecture . R&D IA Générative
 | 2024 - ce jour
 
 | 🏢 *Enseignant vacataire* . _Université Grenoble-Alpes_ +
-Vacations ponctuelles . Cours magistral .
-Informatique . Management
+Cours magistral « L'influence des SI sur le management » (secteur santé)
 | 2023 - ce jour
 
 | 🏢 *Architecte solutions* . _CS Group_ +
-Comités d'architecture . Revues de code . Expertise technique .
-DevOps . Management . Avant-vente . SSI
+Architecture . Management . Avant-vente . Recrutement
 | 2017 - 2024
 
 | 🏢 *Consultant IT* . _Capgemini Telecom Services_ +
-Développement . dotnet . java . qlikview .
-Chef d'équipe développement . Architecte logiciel junior
+Développement . Chef d'équipe . Industrialisation . « DevOps » (logiciels & systèmes)
 | 2011 - 2017
 
 a| === Formation |
@@ -57,10 +56,10 @@ Ingénieur généraliste . Filière informatique
 | 2011
 
 | 💼 *BTS IRIS* . _Lycée St Michel_ . Annecy +
-Mention très bien · Major académique
+Mention très bien · Major de l'acadédmie de Grenoble
 | 2007
 
-a| === Bénévolat |
+a| === Engagements |
 
 | ✋ *Bénévole* . _Protection Civile de l'Isère_ +
 Equipier secouriste · Maintenance des véhicules .
@@ -72,112 +71,124 @@ Directeur d'actions de formation .
 Fonctions administratives, pédagogiques ou techniques
 | 2006 - 2024
 
+| ✋ *Cadre* . Diverses équipes de jeu vidéo en ligne +
+Chef d'équipe . Management à distance . Médiation . Simulation militaire en ligne
+| 2000 - ce jour
+
 | *💻 Informaticien amateur* . A titre personnel +
 Développement divers applications et sites . CICD . devops .
 Administration systèmes et réseaux
 | 1995 - ce jour
 
-
 |===
 
 <<<
 
-== Projets les plus significatifs
+== Dossier de réalisations
 
-2024 . *AKonsulting* . CS GROUP . AKonsulting
-****
-Projet de conception et d'assistance à maitrise d'ouvrage d'un logiciel de comptabilité nucléaire pour la société AKonsulting, spécialisée dans la comptabilité nucléaire de petits détenteur de matière nucléaire. Ces structures détiennent généralement de petites quantités de matière, rarement échangées, ce qui ne justifie pas la mise en place d'une comptabilité interne. Elles délèguent cette obligation réglementaire à un "comptable nucléaire" qui doit pouvoir assurer leur comptabilité et s'interopérer avec les SI des autorités nationales et européennes.
-****
+La réussite d'une transformation numérique ne repose pas uniquement sur l'excellence technique, mais sur *la cohérence entre technique, organisation et la valeur*. Un système d'information performant est celui où l'architecture logicielle reflète une organisation humaine saine, et où chaque choix technologique est directement dicté par le service rendu aux utilisateurs finaux. Mon approche en tant qu'architecte transformation digitale consiste à aligner l'ensemble, pour permettre à chaque besoin d'être couvert par une solution fonctionnelle, sécurisée et performante, confiées à des équipes autonomes, compétentes et heureuses.
 
-2024 . *Corrosion sous contrainte* . CS GROUP . EDF
-****
-Dans le cadre d'un chantier national visant à détecter des microfissures au niveau des soudures des circuits primaires des centrales nucléaires, CS GROUP développe un logiciel permettant à des experts métier d'annoter des clichés ultrasonnores des soudures. L'objectif est de développer un modèle d'IA spécifique, capable d'identifier les clichés de mauvaise qualité, voire à terme de détecter la présence des microfissures, afin de réduire le délai dans l'analyse du parc. J'interviens sur ce projet comme architecte et sur les problèmes de déploiement et d'intégration.
 
-💡 dotnet 8 . postgresql . python
+=== Guider la transformation digitale
+
+SEPTEO SOLUTIONS NOTAIRES . 2024 — ce jour
+****
+*Architecte de la transformation digitale* : Au sein de la principale BU du groupe Septeo, éditeur logiciel dans le TOP 5 français, j'aide la direction générale à orienter la transformation digitale. Mon rôle est d'*apporter la visibilité nécessaire à l'arbitrage stratégique*, en traduisant les enjeux techniques en leviers de décision. En sécurisant des *prototypes* (que ça soit sur le plan technologique ou méthodologique), j'ai permis d'ajuster les orientations par la démonstration factuelle de faisabilité. Cette approche par la preuve facilite l'adhésion aux nouveaux modèles d'organisation et résorbe naturellement les adhérences.
 ****
 
-2022-2023 . *Caraïbes* . CS GROUP . CEA Cadarache
-****
-Projet de modernisation du SI de gestion et de traçabilité des déchets radioactifs pour le CEA Cadarache. J'interviens sur ce projet comme architecte pour la mise en place du MVP, l'accompagnement des équipes de développement, ainsi que le déploiement de la plateforme d'intégration du projet.
+=== Redresser la gouvernance avec la Loi de Conway
 
-💡 dotnet 8 . angular 16 . docker . kubernetes . rke2 . azure devops . apache kafka . openapi . keycloak . oidc . oauth . renovate . sonarqube . sql server 2019 . microservices . scrum
+CS GROUP . STIB/MIVN . 2022 — 2024
 ****
-
-2022-2023 . *Spider* . CS GROUP . STIB/MIVN
-****
-J'interviens dans la redéfinition et la mise en application d'un nouveau plan d'architecture système pour la modernisation du système d'information voyageur (SIV) pour la _Société des Transports Intercommunaux de Bruxelles_ (STIB).
-
-💡 Java 8 . Spring . RHEL 7 . ActiveMQ . Hibernate . Oracle DB . Debian . Angular . ReactJS . ElasticSearch . waterfall
+Intervenu sur un projet de système d'information voyageur (SIV) majeur en situation de blocage, j'ai mené un audit profond des adhérences organisationnelles entravant la production. Le diagnostic a révélé un conflit structurel majeur : les mêmes ressources intervenaient simultanément sur le développement produit et sur le projet d'intégration, créant des *pilotages antagonistes*, des cycles de décision contradictoires et des *problèmes critiques de versionnement*. En m'appuyant sur la Loi de Conway, j'ai instauré une *gouvernance technique rigoureuse* et sanctuarisé les cycles de déploiement. Au-delà de la résolution technique, cet audit a fourni à la Direction les éléments factuels nécessaires pour *justifier une restructuration complète du service* et poser les bases de la structure opérationnelle cible, alignant enfin les ressources humaines sur les impératifs de production.
 ****
 
-2022 . *PANOTA* . CS GROUP . CEA Grenoble
-****
-Dans le cadre d'un projet de modernisation du SI de gestion de la sécurité physique du site de Grenoble, je développe les composants chargés de l'intégration du composant de SCADA avec le reste du SI métier du CEA.
+=== Architecture cloud-native et infrastructure souveraine
 
-💡 .NET Core 2 . ASP.NET . WebAPI . SQL Server . Panorama
+CS GROUP . CEA . 2022 — 2023
 ****
-
-2019-2021 . *TMMA* . CS GROUP . CEA Grenoble
-****
-Je prends en charge la gestion de l'architecture logicielle pour l'ensemble du portefeuille de TMA de CS GROUP pour le CEA Grenoble (environ 70 applications). Je pilote l'activité des consultants SSI et des lead devs de l'équipe.
-
-💡 .NET 4.5 . ASP.NET . MVC . WebForms . Kendo UI . Azure Devops . kanban
+*Conception d'un SI de traçabilité critique* : Au sein d'un environnement aux exigences de sécurité nucléaire, j'ai piloté la refonte globale du système d'information gérant la traçabilité des déchets radioactifs pour le CEA. En tant qu'Architecte Solutions, j'ai assuré la conception générale et l'accompagnement technique des équipes pour garantir la qualité d'une réalisation de grande envergure. J'ai fait le choix d'une architecture basée sur des *technologies cloud-native hébergées sur un cluster on-premises sécurisé*, conciliant agilité logicielle et impératifs de confidentialité totale. Ce projet a nécessité un *mentorat technique* auprès des développeurs pour assurer la transition vers des systèmes distribués à communication asynchrone. J'ai également pris en charge le déploiement de la plateforme d'intégration, opérée en *isolation stricte des réseaux tiers* tout en maintenant la *continuité de service* indispensable à l'exploitation.
 ****
 
 <<<
 
-2017-2019 . *Gestion de projet étendue à tous* (GEPETO) . CS GROUP . CEA Grenoble
-****
-Je pilote la tierce maintenance adaptative (incluant la maintenance corrective et évolutive) du logiciel de gestion de projet du CEA Grenoble. A l'aide du directeur de projet nous recrutons une équipe de 8 personnes réparties sur 2 sites géographiques.
+=== Autres expériences
 
-💡 .NET 4.5 . ASP.NET MVC . SQL Server . Kendo UI . Azure Devops
-****
+[cols="2,2,8" frame="none", grid="none"]
+|===
+| Période | Client | Nature de l'intervention & Réalisations clés
 
-2017 . *Logiciel d'interrogration des ouvrages nucléaires en essai* (LIONNE) . CS GROUP . EDF DTG
-****
-A la demande d'EDF, j'effectue une analyse du code de la version 2 de ce logiciel utilisé pour la maintenance décénale des centrales nucléaires françaises. J'effectue également un contre-chiffrage du projet de développement d'une version 3 pour analyse contradictoire de la proposition du mainteneur actuel du logiciel.
+| 2024 — ce jour
+| *SEPTEO*
+| *Architecte Transformation* : **Médiation entre opérations et Technostructure**. Démonstration de faisabilité et prototypage pour sécuriser le passage vers l'organisation cible et accompagnement humain des équipes dans le changement.
 
-💡 .NET 4.0 . Sonarqube
-****
+3*a| ---
 
-2016-2017 . *AActeur* . Capgemini . AAtlantide
-****
-Je suis en charge du développement d'un module de messagerie email sécurisée entre professionnels de santé dans le logiciel AActeur. Je suis également chargé de la migration d'une partie de l'application vers le task-based asynchronous pattern (TAP).
+| 2024
+| *AKONSULTING*
+| *AMOA & Conformité Nucléaire* : Conception d'un système interopérable avec les autorités nationales et européennes pour la comptabilité des matières radioactives. Établissement du cahier des charges et de l'architecture.
 
-💡 .NET 4.5 . WPF . ClickOnce . WCF . sqlite . AES . RSA . Mailbee
-****
+| 2024
+| *CEA*
+| *TMA & Gestion Critique* : Maintien en condition opérationnelle (MCO) d'un CRM stratégique et du système de gestion des infrastructures de restauration (flux monétiques et logistiques).
 
-2015 . *Consultant BI* . Capgemini
-****
-Je rejoins le cente de service Qlikview de Capgemini. Je participe au développement d'applications de dataviz ainsi que de la partie industrialisation et opérations du service : intégration continue, hébergement d'application client, maintenance, ...
+| 2024
+| *EDF*
+| *Architecture IA & Performance* : Conception système pour la détection de microfissures. Développement d'un composant d'ingestion haute performance pour le traitement massif de données ultrasonores par IA.
 
-💡 Qlikview . Windows . TFS . infrastructure . secops
-****
+| 2024
+| *RATP*
+| *Étude d'obsolescence (Pépite)* : Analyse de la dette technique et dimensionnement de l'effort de mise à niveau du système de paramétrage des motrices depuis le quai.
 
-2014 . *OpenNMS* . Capgemini . Orange . ErDF
-****
-Je contribue au développement et à l'intégration d'un outil de surveillance réseau (NMS) en charge de la supervision des routeurs pour un nouveau réseau de fibres optiques déployées par Orange pour le compte de ErDF. En collaboration avec un collègue en charge de la partie UI/métier, j'assure la communication bas niveau avec les routeurs Alcatel et Cisco.
+| 2022 — 2024
+| *STIB / MIVB*
+| *Gouvernance & SIV (Spider)* : Audit organisationnel et redressement technique d'un Système d'Information Voyageur majeur. Application de la Loi de Conway. (Voir détail supra).
 
-💡 Java 8 . RHEL . HA pacemaker . JBoss . TLS . RSA . JMS . SNMP
-****
+| 2022 — 2023
+| *CEA*
+| *Architecture SI (Caraïbes)* : Conception et pilotage d'un système de traçabilité critique pour les déchets nucléaires. Architecture Cloud-native on-premises. (Voir détail supra).
 
-2013 . *Bluesky public API* . Capgemini . Arkadin
-****
-A l'issue de la réversibilité du projet précédent, je prends la direction d'une équipe de 4 personnes localisées en France et aux Etats-Unis pour développer une API publique pour l'intégration des services dans les SI clients grands comptes.
+| 2021 — 2022
+| *CEA GRENOBLE*
+| *Supervision de Sécurité (PANOTA)* : Intégration au sein du SI client pour le pilotage de la protection physique des sites (incendie, intrusion, inondation). Participation à l'avant-vente.
 
-💡 .NET 4.5 . ASP.NET WebAPI . scrum
-****
+| 2021 — 2022
+| *FRAMATOME*
+| *Modernisation logicielle (KCF)* : Mise à niveau de la pile logicielle du SI dédié à la maintenance décennale des centrales nucléaires. Consultant en ingénierie logicielle.
 
-2011-2013 . *Bluesky* . Capgemini . Arkadin
-****
-Refonte du SI de la société Arkadin dans le cadre de sa transformation digitale. Je contribue au développement de plusieurs composants de la couche OSS et facturation du nouveau SI. A l'issue du projet je participe à la réversibilité sur site client.
+| 2020 — 2021
+| *EDF DTG*
+| *Architecture & Audit (Lionne / Taupe)* : Conception d'une architecture de surveillance des enceintes nucléaires sous pression et audit de code source d'applications sur terminaux d'auscultation durcis.
 
-💡 .NET 4.5 . WCF . Workflow Foundation . MSMQ . SQL Server . Java 8
-****
+| 2021 — 2022
+| *CEA GRENOBLE*
+| *Pilotage Technique (TMMA)* : Pilotage technique d'un centre de service de Tierce Maintenance Applicative (TMA) avec un portefeuille de 70 applications de gestion et de calcul scientifique (STIC). Encadrement de l'équipe SSI.
 
-2007 . *Armée des terres* . CERV . Domaine de Trévarez
-****
-Développement logiciel et fabrication d'un stéréoscope (type Futuroscope) pour la projection d'une série de stéréoscopies de la première guerre mondiale, dans le cadre d'une exposition sur ce thème. Projet de 2ème année de cycle ingénieur sous la responsabilité d'un ingénieur de recherche du Centre Européen de Réalité Virtuelle (CERV).
+| 2017 — 2021
+| *CEA GRENOBLE*
+| *Responsabilité Technique (Gepeto)* :  Management d'une équipe de 4 à 8 personnes répartie sur deux sites géographiques pour la maintenance évolutive de l'application de gestion de projets de la DRT.
 
-💡 C++ . OpenGL . Stéréoscopie . VR . Menuiserie . Assemblage PC . Optique . hack . z-buffer
-****
+3*a| ---
+
+| 2016 — 2017
+| *AATLANTIDE*
+| *Interopérabilité Santé (AActeur)* : Intégration des flux de confiance MSSanté et sécurisation via lecteurs de cartes CPS.
+
+| 2015
+| *CAPGEMINI*
+| *Industrialisation Data* : Développement d'applications Dataviz (QlikView) et mise en place de l'intégration continue (CI/CD) pour un centre de service BI.
+
+| 2014
+| *ERDF (ENEDIS)*
+| *Supervision Réseau (NMS)* : Développement bas niveau (Cisco/Alcatel) pour la surveillance d'un réseau fibre optique stratégique. Conception d'un cluster haute disponibilité RHEL (corsync, peacemaker).
+
+| 2011 — 2013
+| *ARKADIN*
+| *Transformation Digitale & Team Lead* : Direction d'une équipe internationale (France/USA) pour le développement d'API publiques et de couches de facturation (OSS) pour un opérateur télécom.
+
+|===
+
+|===
+^| 👉 *Pour plus de détails sur ces réalisations et consulter mon parcours complet :* +
+https://www.linkedin.com/in/ahupond/[Consulter mon profil LinkedIn]
+|===
