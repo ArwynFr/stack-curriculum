@@ -10,7 +10,7 @@ COPY --from=asciidoc /src/curriculum/curriculum.html ./
 RUN for ext in "css" "js" "html"; do find . -name "*.$ext" -exec minify -o {} {} \;; done
 RUN for ext in "css" "js" "html" "mp4" "png" "webp" "webm" "woff2"; do find . -name "*.$ext" -exec gzip -9k {} \;; done
 
-FROM nginxinc/nginx-unprivileged:1.30.0-alpine-slim@sha256:897f055305b768ecd021d7c7011a43a5c926e77f17db625927c55e453f5ca71e AS runtime
+FROM nginxinc/nginx-unprivileged:1.31.0-alpine-slim@sha256:db8d9661513d14cebe9aee82fbae9a474477714d94ec6c511a7fdab445a4ad3b AS runtime
 WORKDIR /usr/share/nginx/html
 COPY --from=minifier /src/curriculum/curriculum.html index.html
 COPY --from=asciidoc /src/curriculum/curriculum.pdf ./
