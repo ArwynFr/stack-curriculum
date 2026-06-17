@@ -1,2 +1,3 @@
 https://ahupond.dev/
 https://ahupond.dev/curriculum.pdf
+https://ahupond.dev/trilemma.html

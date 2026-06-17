@@ -1,0 +1,289 @@
+= Solving the Domain Trilemma: You can have your cake and eat it too
+Adrien Hupond
+v1.0, 2026-06-17
+:toc:
+:!webfonts:
+:docinfo: shared
+:favicon:
+:source-highlighter: rouge
+
+NOTE: Part of this document has been written with the assistance of an AI agent.
+
+== Introduction
+
+The Domain Trilemma—balancing domain model purity, domain completeness, and performance—has long been a contentious topic in Domain-Driven Design (DDD). Developers often feel forced to sacrifice one of these pillars when designing complex business operations. This article challenges that notion, demonstrating how modern C# features and architectural shifts allow us to achieve a complete, performant, and consistent domain model without compromising on solid design principles.
+
+== The Trilemma
+
+In his well-known article, Vladimir Khorikov outlines the "Domain Trilemma," arguing that when designing a domain model, developers are forced to choose only two out of the following three attributes: 
+
+* **Domain Model Purity**: Keeping domain logic isolated from out-of-process dependencies (like the database).
+* **Domain Completeness**: Encapsulating business logic within the domain entities rather than leaking it into services.
+* **Performance**: Avoiding unnecessary or inefficient database queries.
+
+Khorikov ultimately leans towards sacrificing completeness in favor of purity and performance, often relying on Domain Services to bridge the gap. But is this compromise truly necessary? Let's take a closer look.
+
+Source of the original article: https://enterprisecraftsmanship.com/posts/domain-model-purity-completeness/
+
+== Solving the Trilemma
+
+=== Making the domain really complete
+
+The completeness of the original code sample provided by the author is highly debatable.
+
+A common critique made by senior developers is the over-reliance on "domain services" instead of embedding the logic directly into entities and value objects. This is exactly what causes a domain model to become anemic. In the original scenario, the controller is used to fetch the user by ID, which leaks application orchestration logic to the controller, inadvertently turning it into a pseudo-domain service.
+
+When you need to execute code that accesses the internals of your domain model while also managing object instance lifetimes, you can use static methods. The best example of this approach is the static factory method pattern, but it can be applied to other domain operations as well. Let's use that technique for our email change operation:
+
+[source,c#]
+----
+public class User
+{
+    public Company Company { get; init; }
+    public Email Email { get; private set; }
+
+    public static Result ChangeEmail(int userId, string newEmail, UserRepository userRepository)
+    {
+        if (userRepository.FindById(userId) is not User user)
+        {
+            return Result.Failure("Not found");
+        }
+
+        if (CorporateEmail.Factory(newEmail, user.Company) is not CorporateEmail email)
+        {
+            return Result.Failure("Email is not corporate");
+        }
+
+        // This is allowed because we are inside the User class,
+        // even if not inside the specific instance.
+        user.Email = email;
+
+        userRepository.Save(user);
+        return Result.Success();
+    }
+}
+----
+
+Now our domain logic is _really_ complete: all business decisions and failure states are encapsulated inside the domain entity.
+
+The controller's only responsibility is mapping business results to the HTTP presentation layer:
+
+[source,c#]
+----
+public class UserController
+{
+    public IResult ChangeEmail(int userId, string newEmail)
+    => User.ChangeEmail(userId, newEmail, _userRepository) switch
+    {
+        { IsSuccess: true } => Results.Ok(),
+        { IsFailure: true } result => Results.Conflict(result.Error),
+        _ => throw new InvalidOperationException()
+    };
+}
+----
+
+NOTE: The `InvalidOperationException` above is necessary because C# does not support true discriminated unions yet. It shouldn't happen that a result is neither a success nor a failure, unless there is a bug in the library we are using.
+
+=== Beyond the scope of a single entity
+
+Later, the author introduces a new constraint to the system: any email must be unique, and the domain logic should prevent changing an email to a value already in use by another user. The rest of the article demonstrates how you supposedly cannot have both completeness (putting the code inside the entity) and purity (preventing the class from calling the database). We will see that this is not _exactly_ impossible.
+
+The author's first sample fetches all users from the repository to pass them to the `User.ChangeEmail` method, completely disregarding the massive performance hit of that request. That sample is rightly critiqued for fragmenting the domain logic—with part of the validation happening in the `User` class and another in the controller. He then solves the problem by pushing the check inside the `User` class with a reference to the `UserRepository`, but curiously keeps the instruction to fetch the User in the controller.
+
+Here is a _really_ complete implementation of the domain logic, in my opinion:
+
+[source,c#]
+----
+public class User
+{
+    public Company Company { get; init; }
+    public Email Email { get; private set; }
+
+    public static Result ChangeEmail(int userId, string email, UserRepository userRepository)
+    {
+        if (userRepository.FindById(userId) is not User user)
+        {
+            return Result.Failure("Not found");
+        }
+
+        if (userRepository.FindByEmail(email) is not null)
+        {
+            return Result.Failure("Email in use");
+        }
+
+        if (CorporateEmail.Factory(email, user.Company) is not CorporateEmail corporate)
+        {
+            return Result.Failure("Email not corporate");
+        }
+
+        user.Email = corporate;
+        userRepository.Save(user);
+        return Result.Success();
+    }
+}
+----
+
+Of course, this implementation is impure, as it references and uses the repository. 
+
+=== Domain versus Infrastructure
+
+A common argument against referencing a repository in the domain layer is that a repository is an infrastructure class, and doing so creates tight coupling between the domain logic and the database infrastructure.
+
+**This is a clear misconception of what domain model isolation and loosely coupled layers are actually about.**
+
+A repository exposes an interface that behaves like an in-memory collection of domain objects. It translates domain-level operations into infrastructure-specific instructions. It is, by definition, an adapter between the domain and the infrastructure layers. The purpose of a repository is precisely to decouple domain operations from their concrete infrastructure implementation.
+
+For instance, the `UserRepository.FindByEmail()` method from above could have a very basic implementation (fetching from a `Users` table using an index), or a highly convoluted one (fetching from Redis to obtain a Guid, then hitting a MongoDB shard to deserialize a JSON document). We don't know, and from the domain's perspective, we don't _care_.
+
+**Referencing the repository is actually how you abstract your infrastructure away from your domain logic.**
+
+=== How Entity Framework does it
+
+Therefore, there should be no discouragement against referencing repositories from the domain model, provided you apply good practices in layer management and isolation. This is exactly what EF Core does for you out of the box with the driver strategy pattern, configured via methods like `.AddSqlite<TContext>()` or `.UseSqlServer<TContext>()`. The EF Core *Driver* is your actual infrastructure layer (translating LINQ expressions into concrete SQL statements). This allows you to bind the exact same domain logic to entirely different infrastructures without changing your business rules.
+
+NOTE: You should reference a `DbSet` rather than a `DbContext` directly. This ensures you can reuse your domain logic across multiple apps and different contexts. As long as they map your entity, that `DbContext` should simply expose a `DbSet` for it!
+
+[CAUTION]
+====
+Another option is to reference an `IQueryable` so you don't depend on EF Core specifically. This provides the great benefit of allowing you to manipulate your entities via LINQ-to-Objects.
+
+However, EF Core manages queryables asynchronously and translates your LINQ expressions into SQL. This is fundamentally different from LINQ-to-Objects, which compiles and _executes_ your lambdas in memory. This difference deeply impacts behavior regarding string comparison, number/date formatting, and more. 
+
+Both approaches are generally incompatible, as you will need to write different lambdas depending on the provider. For example, LINQ-to-Objects will complain about comparing strings without a culture, whereas EF Core will be unable to translate a culture-specific string comparison into valid SQL.
+
+Ultimately, you either design your domain logic to work with EF Core by referencing a `DbSet`, or you design it for LINQ-to-Objects by referencing an `IQueryable`. Pick your poison.
+====
+
+=== The fallacy of domain purity
+
+The original article's defense of purity is somewhat superficial. In its closing lines, it provides three justifications, which break down under scrutiny:
+
+* **It is a commendation of DDD:** False. Eric Evans’ only reference to domain purity relates to Bounded Context isolation—specifically how different bounded contexts should be allowed to have distinct domain models for the same entities, rather than forcing a unified enterprise model.
+* **It is a commendation of unit testing:** False. The basic requirement of unit testing is isolating the unit under test using dependency faking (mocks/stubs). While pure methods are objectively easier to test because there is nothing to mock, "easier" does not mean "required." Furthermore, database testing has evolved dramatically; EF Core now officially suggests using real databases for tests, and tools like Testcontainers have become an industry standard.
+* **It is a commendation of functional programming:** This is nonsensical in this context. While functional programming favors pure functions, we are executing a command that updates a user's email address. You cannot reasonably expect a state-mutating feature to be implemented using a pure function that never touches a database.
+
+*That feature cannot have a pure implementation, because it is impure by design.*
+
+The real reason developers chase purity is actually **consistency**. When domain logic is impure, it queries and updates state during execution. Touching the database multiple times means the underlying state could change between statements, leading to race conditions. This potential for inconsistency is what the domain layer must avoid at all costs.
+
+But to solve the consistency problem, you don't make the method _pure_—you make it _atomic_.
+
+=== Making the operation atomic
+
+To ensure the overall operation is atomic, you have two primary options:
+
+==== Use a database transaction
+
+Using a database transaction is straightforward and prevents any modifications to the user table between querying the existing state and committing the update:
+
+[source,c#]
+----
+public class User
+{
+    public Company Company { get; init; }
+    public Email Email { get; private set; }
+
+    public static Result ChangeEmail(int userId, string email, UserRepository userRepository)
+    {
+        using var transaction = userRepository.BeginTransaction();
+
+        if (userRepository.FindById(userId) is not User user)
+        {
+            return Result.Failure("Not found");
+        }
+
+        if (userRepository.FindByEmail(email) is not null)
+        {
+            return Result.Failure("Conflict");
+        }
+
+        if (CorporateEmail.Factory(email, user.Company) is not CorporateEmail corporate)
+        {
+            return Result.Failure("Invalid email address");
+        }
+
+        user.Email = corporate;
+        userRepository.Save(user);
+        transaction.Commit();
+        
+        return Result.Success();
+    }
+}
+----
+
+This works fine for changing a user's email because it is an infrequent operation. However, if the use case was updating a stock share value in a high-frequency trading application, this lock-and-update implementation would quickly cause severe performance bottlenecks.
+
+=== Going nuclear with LINQ
+
+Let's take a step back from patterns and layers, and reconsider what we are actually trying to do:
+
+> Update the user's email, but only if the new value is not already in use.
+
+The best way to make a use case atomic is to leverage an atomic database operation. This requires executing an update with a built-in condition that fails if the email is already in use. You can't do this easily with a standard ORM change tracker or a basic repository, but fortunately, EF Core 7+ introduced a powerful API for exactly this: `ExecuteUpdate` / `ExecuteUpdateAsync`.
+
+[source,c#]
+----
+public record class User
+{
+    public static Task<int> ChangeEmail(int userId, Email email, DbSet<User> users) => users
+        .Where(user => user.Id == userId)
+        .Where(Email.IsAvailable(users, email))
+        .Where(CorporateEmail.IsCorporate(email))
+        .ExecuteUpdateAsync(setter => setter.SetProperty(user => user.Email, email));
+}
+----
+
+Once again, we use the power of LINQ, EF Core, value objects, and static methods to keep the logic exactly where it belongs:
+
+[source,c#]
+----
+public record class CorporateEmail
+{
+    internal static Expression<Func<User, bool>> IsCorporate(Email email)
+    => user => user.Company.Domain == email.Domain;
+}
+----
+
+[source,c#]
+----
+public record class Email
+{
+    internal static Expression<Func<User, bool>> IsAvailable(DbSet<User> users, Email email)
+    => user => !users.Any(u => u.Email == email);
+}
+----
+
+Now, we have domain logic that is truly:
+
+* **Performant:** A single database call is infinitely more efficient than multiple round-trips.
+* **Complete:** All rules for a given entity or value object live directly inside the class definition of that type.
+* **Atomic:** We interact with the database, but only via a single, atomic operation at the very end of the evaluation.
+
+One could even argue that the operation preserves a form of purity by using the async variant `ExecuteUpdateAsync` without awaiting it inside the method: the actual database round-trip is deferred, allowing the side effect to be triggered later in the application layer (e.g., inside the controller or middleware), rather than inside the core domain logic sequence.
+
+We can easily verify that this implementation works like a charm using modern integration tests:
+
+[source,c#]
+----
+[ClassDataSource<DatabaseFixture>]
+public class DependencyInjectionTests(DatabaseFixture db)
+{
+    [Test]
+    [Arguments(1, "unused@domain.com", 1)] // success
+    [Arguments(4, "unused@domain.com", 0)] // not found
+    [Arguments(1, "unused@gmail.com", 0)]  // not corporate
+    [Arguments(1, "used@domain.com", 0)]   // in use
+    public async Task SetUsername(int id, string email, int expected)
+    {
+        var value = await Assert.That(Email.Factory(email)).IsNotNull();
+        var actual = await User.ChangeEmail(id, value, db.myDbContext.Users);
+        await Assert.That(actual).IsEqualTo(expected);
+    }
+}
+----
+
+== Conclusion
+
+The pursuit of absolute "domain purity" often does more harm than good, leading developers to strip essential business rules out of their entities and scatter them across anemic services. By recognizing that abstractions like repositories and EF Core's `DbSet` exist specifically to decouple infrastructure from domain logic, we can stop treating them as architectural violations. 
+
+By leveraging static methods, value objects, and modern tooling like EF Core's atomic `ExecuteUpdate`, we can keep our domain logic fully encapsulated, highly performant, and perfectly consistent. You don't have to choose two out of three. You really can have your cake and eat it too.
