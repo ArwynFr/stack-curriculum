@@ -1,6 +1,6 @@
 = Solving the Domain Trilemma: You can have your cake and eat it too
 Adrien Hupond
-v1.0, 2026-06-17
+v1.1, 2026-06-17
 :toc:
 :!webfonts:
 :docinfo: shared
@@ -26,6 +26,28 @@ Khorikov ultimately leans towards sacrificing completeness in favor of purity an
 Source of the original article: https://enterprisecraftsmanship.com/posts/domain-model-purity-completeness/
 
 == Solving the Trilemma
+
+=== Enriching your domain with value objects
+
+For the sake of the demonstration, I'll use a set of value-object types with little to no validation logic in them.
+In a real project, you would have to write more robust code to manage conformity to RFCs for domain names or email usernames.
+Let's suppose for the rest of this article that all these types have factory methods which validate whether a primitive is a valid value or return null.
+
+[source,c#]
+----
+public record class Username(string Value);
+public record class Domain(string Value);
+public record class Company(Domain Domain);
+public record class Email(Username Username, Domain Domain);
+public record class CorporateEmail(Username Username, Company Company) : Email(Username, Company.Domain)
+{
+    public static CorporateEmail? Factory(Email? email, Company? company) => (email, company) switch
+    {
+        (not null, not null) when email.Domain == company.Domain => new(email.Username, company),
+        _ => null
+    };
+}
+----
 
 === Making the domain really complete
 
@@ -251,6 +273,18 @@ public record class Email
     internal static Expression<Func<User, bool>> IsAvailable(DbSet<User> users, Email email)
     => user => !users.Any(u => u.Email == email);
 }
+----
+
+This code produces the following SQL statement with `Microsoft.EntityFrameworkCore.Sqlite`:
+
+[source,sql]
+----
+UPDATE "Users" AS "u"
+SET "Email" = @p
+WHERE "u"."Id" = @id AND "u"."Company_Domain" = @email_Domain AND NOT EXISTS (
+    SELECT 1
+    FROM "Users" AS "u0"
+    WHERE "u0"."Email" = @email)
 ----
 
 Now, we have domain logic that is truly:
