@@ -27,7 +27,7 @@ jobs:
           password: ${{ github.token }}
 
       - name: 🔨 Git checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🔨 Version number
         run: ./build/version/New-ReleaseVersion.ps1
