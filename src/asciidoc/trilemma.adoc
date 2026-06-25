@@ -1,6 +1,6 @@
 = Solving the Domain Trilemma: You can have your cake and eat it too
 Adrien Hupond
-v1.1, 2026-06-17
+v2.0, 2026-06-17
 :toc:
 :!webfonts:
 :docinfo: shared
@@ -15,15 +15,13 @@ The Domain Trilemma—balancing domain model purity, domain completeness, and pe
 
 == The Trilemma
 
-In his well-known article, Vladimir Khorikov outlines the "Domain Trilemma," arguing that when designing a domain model, developers are forced to choose only two out of the following three attributes: 
+In his influential article, Vladimir Khorikov (<<Khorikov2020, 2020>>) outlines the "Domain Trilemma," arguing that when designing a domain model, developers are forced to choose only two out of the following three attributes: 
 
 * **Domain Model Purity**: Keeping domain logic isolated from out-of-process dependencies (like the database).
 * **Domain Completeness**: Encapsulating business logic within the domain entities rather than leaking it into services.
 * **Performance**: Avoiding unnecessary or inefficient database queries.
 
-Khorikov ultimately leans towards sacrificing completeness in favor of purity and performance, often relying on Domain Services to bridge the gap. But is this compromise truly necessary? Let's take a closer look.
-
-Source of the original article: https://enterprisecraftsmanship.com/posts/domain-model-purity-completeness/
+Khorikov (<<Khorikov2020, 2020>>) "strongly [recommends] that you choose domain model purity over domain model completeness". But is this compromise truly necessary? Let's take a closer look.
 
 == Solving the Trilemma
 
@@ -51,11 +49,11 @@ public record class CorporateEmail(Username Username, Company Company) : Email(U
 
 === Making the domain really complete
 
-The completeness of the original code sample provided by the author is highly debatable.
+The completeness of Khorikov's original code is highly debatable.
 
-A common critique made by senior developers is the over-reliance on "domain services" instead of embedding the logic directly into entities and value objects. This is exactly what causes a domain model to become anemic. In the original scenario, the controller is used to fetch the user by ID, which leaks application orchestration logic to the controller, inadvertently turning it into a pseudo-domain service.
+A common critique made by senior developers is the over-reliance on "domain services" instead of embedding the logic directly into entities and value objects. This is exactly what causes a domain model to become anemic. In the original scenario, the controller is used to fetch the user by ID, which leaks some logic (what to do if the user id is unknown) to the controller, inadvertently turning it into a pseudo-domain service.
 
-When you need to execute code that accesses the internals of your domain model while also managing object instance lifetimes, you can use static methods. The best example of this approach is the static factory method pattern, but it can be applied to other domain operations as well. Let's use that technique for our email change operation:
+How do we encapsulate that logic inside the `User` class when an instance doesn't event exist yet? When you need to execute code that accesses the internals of your domain model while also managing object instance lifetimes, you can use static methods. The best example of this approach is the static factory method pattern, but it can be applied to other domain operations as well. Let's use that technique for our email change operation:
 
 [source,c#]
 ----
@@ -88,7 +86,7 @@ public class User
 
 Now our domain logic is _really_ complete: all business decisions and failure states are encapsulated inside the domain entity.
 
-The controller's only responsibility is mapping business results to the HTTP presentation layer:
+The controller is only responsible for mapping business results to the HTTP presentation layer:
 
 [source,c#]
 ----
@@ -97,20 +95,17 @@ public class UserController
     public IResult ChangeEmail(int userId, string newEmail)
     => User.ChangeEmail(userId, newEmail, _userRepository) switch
     {
-        { IsSuccess: true } => Results.Ok(),
         { IsFailure: true } result => Results.Conflict(result.Error),
-        _ => throw new InvalidOperationException()
+        _ => Results.Ok(),
     };
 }
 ----
-
-NOTE: The `InvalidOperationException` above is necessary because C# does not support true discriminated unions yet. It shouldn't happen that a result is neither a success nor a failure, unless there is a bug in the library we are using.
 
 === Beyond the scope of a single entity
 
 Later, the author introduces a new constraint to the system: any email must be unique, and the domain logic should prevent changing an email to a value already in use by another user. The rest of the article demonstrates how you supposedly cannot have both completeness (putting the code inside the entity) and purity (preventing the class from calling the database). We will see that this is not _exactly_ impossible.
 
-The author's first sample fetches all users from the repository to pass them to the `User.ChangeEmail` method, completely disregarding the massive performance hit of that request. That sample is rightly critiqued for fragmenting the domain logic—with part of the validation happening in the `User` class and another in the controller. He then solves the problem by pushing the check inside the `User` class with a reference to the `UserRepository`, but curiously keeps the instruction to fetch the User in the controller.
+The author's first sample fetches all users from the repository to pass them to the `User.ChangeEmail` method, pointing out the massive performance hit of that request. That sample is rightly critiqued for fragmenting the domain logic—with part of the validation happening in the `User` class and another in the controller. He then solves the problem by pushing the check inside the `User` class with a reference to the `UserRepository`, but curiously keeps the instruction to fetch the User in the controller.
 
 Here is a _really_ complete implementation of the domain logic, in my opinion:
 
@@ -145,52 +140,86 @@ public class User
 }
 ----
 
-Of course, this implementation is impure, as it references and uses the repository. 
-
-=== Domain versus Infrastructure
-
-A common argument against referencing a repository in the domain layer is that a repository is an infrastructure class, and doing so creates tight coupling between the domain logic and the database infrastructure.
-
-**This is a clear misconception of what domain model isolation and loosely coupled layers are actually about.**
-
-A repository exposes an interface that behaves like an in-memory collection of domain objects. It translates domain-level operations into infrastructure-specific instructions. It is, by definition, an adapter between the domain and the infrastructure layers. The purpose of a repository is precisely to decouple domain operations from their concrete infrastructure implementation.
-
-For instance, the `UserRepository.FindByEmail()` method from above could have a very basic implementation (fetching from a `Users` table using an index), or a highly convoluted one (fetching from Redis to obtain a Guid, then hitting a MongoDB shard to deserialize a JSON document). We don't know, and from the domain's perspective, we don't _care_.
-
-**Referencing the repository is actually how you abstract your infrastructure away from your domain logic.**
-
-=== How Entity Framework does it
-
-Therefore, there should be no discouragement against referencing repositories from the domain model, provided you apply good practices in layer management and isolation. This is exactly what EF Core does for you out of the box with the driver strategy pattern, configured via methods like `.AddSqlite<TContext>()` or `.UseSqlServer<TContext>()`. The EF Core *Driver* is your actual infrastructure layer (translating LINQ expressions into concrete SQL statements). This allows you to bind the exact same domain logic to entirely different infrastructures without changing your business rules.
-
-NOTE: You should reference a `DbSet` rather than a `DbContext` directly. This ensures you can reuse your domain logic across multiple apps and different contexts. As long as they map your entity, that `DbContext` should simply expose a `DbSet` for it!
-
-[CAUTION]
-====
-Another option is to reference an `IQueryable` so you don't depend on EF Core specifically. This provides the great benefit of allowing you to manipulate your entities via LINQ-to-Objects.
-
-However, EF Core manages queryables asynchronously and translates your LINQ expressions into SQL. This is fundamentally different from LINQ-to-Objects, which compiles and _executes_ your lambdas in memory. This difference deeply impacts behavior regarding string comparison, number/date formatting, and more. 
-
-Both approaches are generally incompatible, as you will need to write different lambdas depending on the provider. For example, LINQ-to-Objects will complain about comparing strings without a culture, whereas EF Core will be unable to translate a culture-specific string comparison into valid SQL.
-
-Ultimately, you either design your domain logic to work with EF Core by referencing a `DbSet`, or you design it for LINQ-to-Objects by referencing an `IQueryable`. Pick your poison.
-====
+Of course, this implementation is impure, as it references and uses the repository. Or is it?
 
 === The fallacy of domain purity
 
 The original article's defense of purity is somewhat superficial. In its closing lines, it provides three justifications, which break down under scrutiny:
 
-* **It is a commendation of DDD:** False. Eric Evans’ only reference to domain purity relates to Bounded Context isolation—specifically how different bounded contexts should be allowed to have distinct domain models for the same entities, rather than forcing a unified enterprise model.
-* **It is a commendation of unit testing:** False. The basic requirement of unit testing is isolating the unit under test using dependency faking (mocks/stubs). While pure methods are objectively easier to test because there is nothing to mock, "easier" does not mean "required." Furthermore, database testing has evolved dramatically; EF Core now officially suggests using real databases for tests, and tools like Testcontainers have become an industry standard.
-* **It is a commendation of functional programming:** This is nonsensical in this context. While functional programming favors pure functions, we are executing a command that updates a user's email address. You cannot reasonably expect a state-mutating feature to be implemented using a pure function that never touches a database.
+* **DDD advocates for it:** False. Eric Evans (<<Evans2003, 2004>>) only reference to domain purity relates to Bounded Context isolation—specifically how different bounded contexts should be allowed to have distinct domain models for the same entities, rather than forcing a unified enterprise model. His work is mostly based on samples using 4-tiers layered architecture, where references are going downwards—you may rightly reference the infrastructure layer from the domain layer.
+* **Unit testing advocates for it:** False. The basic requirement of unit testing is isolating the unit under test using dependency faking (mocks/stubs). While pure methods are objectively easier to test because there is nothing to mock, "easier" does not mean "required." Furthermore, database testing has evolved dramatically; EF Core now officially suggests using real databases for tests, and tools like Testcontainers have become an industry standard.
+* **Functional programming advocates for it:** This is nonsensical in this context. While functional programming favors pure functions, we are executing a command that updates a user's email address. You cannot reasonably expect a state-mutating feature to be implemented using a pure function that never touches a database.
 
-*That feature cannot have a pure implementation, because it is impure by design.*
+The thought process behind purity mirrors the mechanics of synchronous versus asynchronous programming. You expose a synchronous method because you can guarantee a synchronous execution path to the caller. The moment a single branch of that logic requires an asynchronous operation, the entire signature must become async. You can no longer pretend it is synchronous. The same structural gravity applies to purity: you cannot realistically implement a user email change operation without interacting with the state of the system at some point.
+
+**The feature cannot have a pure signature because it is impure by design.**
+
+=== No domain model is an island
+
+The problem started in 2008 when Jeffrey Palermo introduced the onion architecture. What he denounced, and caused many headaches at that time, was how traditionnal layered architecture made the domain logic dependant on the infrastructure layer, which made regressions in the domain logic possible each time one developper touched low-level code:
+
+"The biggest offender (and most common) is the coupling of UI and business logic to data access. Yes, UI is coupled to data access with this approach. Transitive dependencies are still dependencies. The UI can’t function if business logic isn’t there. Business logic can’t function if data access isn’t there. I’m intentionally ignoring infrastructure here because this typically varies from system to system. Data access changes frequently. Historically, the industry has modified data access techniques at least every three years; therefore, we can count on needing to modify data access three years from now for any healthy, long-lived systems that’s mission-critical to the business. We often don’t keep systems up-to-date because it’s impossible to do. If coupling prevents easily upgrading parts of the system, then the business has no choice but to let the system fall behind into a state of disrepair. This is how legacy systems become stale, and eventually they are rewritten."
+-- Jeffrey Palermo (<<Palermo2008, 2008>>), The Onion Architecture (part 1)
+
+In part 3, he provides an eye opening diagram showing a flattened version of onion architecture, emphasising on Data Access being a top layer above two others: business logic, and object model. By attempting to keep the domain model pure, his solution is a concrete call on putting domain logic outside of the domain model, which is exacly what leads to anemic domain models and domain fragmentation (<<Evans2003, 2003, Evans>>, <<Fowler2003, 2003, Fowler>>). This happens because trying to keep a fundamentally impure operation pure forces you into a bad trade-off: you either bloat your application services or fragment your business rules across arbitrary boundaries (<<Khorikov2020, 2020, Khorikov>>).
+
+=== Repositories are not infrastructure
+
+A common argument against referencing a repository in the domain layer is that a repository is an infrastructure class, and doing so creates tight coupling between the domain logic and the database infrastructure.
+
+**This is a clear misconception of what domain model isolation and loosely coupled layers are actually about.**
+
+A repository exposes an interface that behaves like an in-memory collection of domain objects. It translates domain-level operations into infrastructure-specific instructions. It is, by definition, an adapter between the domain and the infrastructure layers. The purpose of a repository is precisely to decouple domain operations from their concrete infrastructure implementation. For instance, the `UserRepository.FindByEmail()` method from above could have a very basic implementation (fetching from a `Users` table using an index), or a highly convoluted one (fetching from Redis to obtain a Guid, then hitting a MongoDB shard to deserialize a JSON document). We don't know, and from the domain's perspective, we don't _care_.
+
+**Referencing the repository is actually how you abstract your infrastructure away from your domain logic.**
+
+So what was the problem in the first place? Well, at that time dependency injection wasn't a common practice. Thus, you would have your domain logic depend on a repository, and that repository would depend on a specific database client library. Basically you couldn't compile your domain logic without an indirect reference to that `SqlClient` library. It felt wrong and it was questionable as to whether you could reuse that logic in an application storing it's domain model in a PostgreSQL database. The solution to the problem wasn't to hide repositories away from the domain classes, but to use dependency injection and hexagonal architecture to inject whichever implementation or mock you wished:
+
+"Alistair Cockburn has written a bit about Hexagonal architecture. Hexagonal architecture and Onion Architecture share the following premise: Externalize infrastructure and write adapter code so that the infrastructure does not become tightly coupled."
+-- Jeffrey Palermo (<<Palermo2008, 2008>>), The Onion Architecture (part 1)
+
+=== Don't abstract the abstraction
+
+Another layer of confusion emerged with the rise of modern Object-Relational Mappers (ORMs) like Entity Framework.
+
+Following the recommendations of thought leaders of that time, many were reluctant to reference classes of these libraries from their domain code. The motto of that time was that domain logic should not depend on infrastructure implementation, and these classes were seen as infrastructure code. Juste like they were taught not to reference the `UserRepository` directly but use an `IUserRepository` to abstract the repository's reference to concrete infratructure, they started adding abstraction layers above the ORM classes.
+
+**What they missed was that these libraries already were abstractions.**
+
+Referencing an abstraction instead of a concrete implementation solves coupling and dependencies issues. But stacking abstraction layers on top of others solves nothing: in the end, you still need to reference an abstraction layer. You've simply added redundancy, constraints and more resources consumption.
+
+Therefore, there should be no discouragement against referencing ORM repositories (such as `DbSet` in EF Core) from the domain model as long as they provide DI-based strategy patterns to inject the right concrete implementation. This is exactly what EF Core does for you out of the box with methods like `.AddSqlite<TContext>()` or `.UseSqlServer<TContext>()`. The EF Core *Driver* is your actual infrastructure layer (translating LINQ expressions into concrete SQL statements). This allows you to bind the exact same domain logic to entirely different infrastructures, with each application referencing the right driver package while the domain logic only references the core package.
+
+=== No antidote for paradigms
+
+Arguments have also been made that domain logic should be written pure, in order to allow migrating from a data access technology to another:
+
+"Data access changes frequently.  Historically, the industry has modified data access techniques at least every three years; therefore, we can count on needing to modify data access three years from now for any healthy, long-lived systems that’s mission-critical to the business."
+-- Jeffrey Palermo (<<Palermo2008, 2008>>), The Onion Architecture (part 1)
+
+A lot of people, including Jeffrey Palermo here, confuse changing your _infrastructure_ (moving between SQL Server and PostgreSQL) and changing your _abstractions_ (moving between EF core and Dapper). Abstractions rely on conventions. They are the immutable parts that consumers depend on, allowing decoupling by injecting different implementations at runtime. By design, switching from an abstraction to another cannot be made without an impact on the consuming end. Changing abstractions is a paradigm change.
+
+If you build a robot programmed to interact with a standardized physical switch, that robot can operate a wide range of electrical systems—be it a 12V electronic circuit, a 220V light bulb, or a 380V three-phase industrial engine. However, designing a robot capable of interacting with *any generic form of switching mechanism imaginable* is an order of magnitude more complex and largely useless. 
+
+Let's face reality: how many software product faced a need in infrastructure change? And amongst these, how many required a change in their infrastructure _abstractions_? In most cases, being able to switch infrastructure is more than you would ever need. The rest is over-engineering because FOMO.
+
+Pick your poison.
+
+=== Completeness matters more than purity
+
+Now, since we supposedly can't have both, what would be reasons for developpers to make their domain model complete rather than pure? There are two reasons why:
+
+First, as we saw earlier, fragmenting the domain model into a pure part and a non-pure one leads to anemic domain models. Because pure parts usually focus on rules validation (as long as their scope is limited to the entity instance), whereas impure parts focus on orchestration. With a complete domain model you can have your logic inside the entity, making it more expressive.
+
+The most important reason, though, is that by making the business logic complete you simplify maintenance and reduce costs. When you have something wrong with the business operation of changing the user's email address, you know it's necessarily in the `User` domain class. You don't have to check the whole chain of classes, you don't have to reconstruct the flow of logic and interactions between these classes.
+
+And you can still have your domain logic depend on an abstraction of your actual infrastructure, being capable of reusing or changing your underlying infrastructure when needed.
+
+=== Making the operation atomic
 
 The real reason developers chase purity is actually **consistency**. When domain logic is impure, it queries and updates state during execution. Touching the database multiple times means the underlying state could change between statements, leading to race conditions. This potential for inconsistency is what the domain layer must avoid at all costs.
 
 But to solve the consistency problem, you don't make the method _pure_—you make it _atomic_.
-
-=== Making the operation atomic
 
 To ensure the overall operation is atomic, you have two primary options:
 
@@ -239,7 +268,7 @@ This works fine for changing a user's email because it is an infrequent operatio
 
 Let's take a step back from patterns and layers, and reconsider what we are actually trying to do:
 
-> Update the user's email, but only if the new value is not already in use.
+Update the user's email, but only if the new value is not already in use.
 
 The best way to make a use case atomic is to leverage an atomic database operation. This requires executing an update with a built-in condition that fails if the email is already in use. You can't do this easily with a standard ORM change tracker or a basic repository, but fortunately, EF Core 7+ introduced a powerful API for exactly this: `ExecuteUpdate` / `ExecuteUpdateAsync`.
 
@@ -321,3 +350,11 @@ public class DependencyInjectionTests(DatabaseFixture db)
 The pursuit of absolute "domain purity" often does more harm than good, leading developers to strip essential business rules out of their entities and scatter them across anemic services. By recognizing that abstractions like repositories and EF Core's `DbSet` exist specifically to decouple infrastructure from domain logic, we can stop treating them as architectural violations. 
 
 By leveraging static methods, value objects, and modern tooling like EF Core's atomic `ExecuteUpdate`, we can keep our domain logic fully encapsulated, highly performant, and perfectly consistent. You don't have to choose two out of three. You really can have your cake and eat it too.
+
+[bibliography]
+== References
+
+* [[Evans2003]] Evans, E. (2003). _Domain-driven design: Tackling complexity in the heart of software_. Addison-Wesley Professional.
+* [[Fowler2003]] Fowler, M. (2003, November 25). _Anemic Domain Model_. Martin Fowler's Blog. https://martinfowler.com/bliki/AnemicDomainModel.html
+* [[Palermo2008]] Palermo, J. (2008, July-August). __The Onion Architecture__ (Parts 1-3). Jeffrey Palermo's Blog. https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/
+* [[Khorikov2020]] Khorikov, V. (2020, August 4). __Domain model purity vs domain model completeness (DDD Trilemma)__. Enterprise Craftsmanship. https://enterprisecraftsmanship.com/posts/domain-model-purity-completeness/
