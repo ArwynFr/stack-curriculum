@@ -53,7 +53,7 @@ The completeness of Khorikov's original code is highly debatable.
 
 A common critique made by senior developers is the over-reliance on "domain services" instead of embedding the logic directly into entities and value objects. This is exactly what causes a domain model to become anemic. In the original scenario, the controller is used to fetch the user by ID, which leaks some logic (what to do if the user id is unknown) to the controller, inadvertently turning it into a pseudo-domain service.
 
-How do we encapsulate that logic inside the `User` class when an instance doesn't event exist yet? When you need to execute code that accesses the internals of your domain model while also managing object instance lifetimes, you can use static methods. The best example of this approach is the static factory method pattern, but it can be applied to other domain operations as well. Let's use that technique for our email change operation:
+How do we encapsulate that logic inside the `User` class when an instance doesn't even exist yet? When you need to execute code that accesses the internals of your domain model while also managing object instance lifetimes, you can use static methods. The best example of this approach is the static factory method pattern, but it can be applied to other domain operations as well. Let's use that technique for our email change operation:
 
 [source,c#]
 ----
@@ -146,7 +146,7 @@ Of course, this implementation is impure, as it references and uses the reposito
 
 The original article's defense of purity is somewhat superficial. In its closing lines, it provides three justifications, which break down under scrutiny:
 
-* **DDD advocates for it:** False. Eric Evans (<<Evans2003, 2004>>) only reference to domain purity relates to Bounded Context isolation—specifically how different bounded contexts should be allowed to have distinct domain models for the same entities, rather than forcing a unified enterprise model. His work is mostly based on samples using 4-tiers layered architecture, where references are going downwards—you may rightly reference the infrastructure layer from the domain layer.
+* **DDD advocates for it:** False. Eric Evans (<<Evans2003, 2003>>) references domain "purity" only once, and this relates to Bounded Context isolation—specifically how different bounded contexts should be allowed to have distinct domain models for the same entities, rather than forcing a unified enterprise model. His work is mostly based on samples using 4-tiers layered architecture, where references are going downwards—you may rightly reference the infrastructure layer from the domain layer.
 * **Unit testing advocates for it:** False. The basic requirement of unit testing is isolating the unit under test using dependency faking (mocks/stubs). While pure methods are objectively easier to test because there is nothing to mock, "easier" does not mean "required." Furthermore, database testing has evolved dramatically; EF Core now officially suggests using real databases for tests, and tools like Testcontainers have become an industry standard.
 * **Functional programming advocates for it:** This is nonsensical in this context. While functional programming favors pure functions, we are executing a command that updates a user's email address. You cannot reasonably expect a state-mutating feature to be implemented using a pure function that never touches a database.
 
@@ -156,12 +156,12 @@ The thought process behind purity mirrors the mechanics of synchronous versus as
 
 === No domain model is an island
 
-The problem started in 2008 when Jeffrey Palermo introduced the onion architecture. What he denounced, and caused many headaches at that time, was how traditionnal layered architecture made the domain logic dependant on the infrastructure layer, which made regressions in the domain logic possible each time one developper touched low-level code:
+The problem started in 2008 when Jeffrey Palermo introduced the onion architecture. What he denounced, and caused many headaches at that time, was how traditional layered architecture made the domain logic dependant on the infrastructure layer, which made regressions in the domain logic possible each time one developer touched low-level code:
 
 "The biggest offender (and most common) is the coupling of UI and business logic to data access. Yes, UI is coupled to data access with this approach. Transitive dependencies are still dependencies. The UI can’t function if business logic isn’t there. Business logic can’t function if data access isn’t there. I’m intentionally ignoring infrastructure here because this typically varies from system to system. Data access changes frequently. Historically, the industry has modified data access techniques at least every three years; therefore, we can count on needing to modify data access three years from now for any healthy, long-lived systems that’s mission-critical to the business. We often don’t keep systems up-to-date because it’s impossible to do. If coupling prevents easily upgrading parts of the system, then the business has no choice but to let the system fall behind into a state of disrepair. This is how legacy systems become stale, and eventually they are rewritten."
 -- Jeffrey Palermo (<<Palermo2008, 2008>>), The Onion Architecture (part 1)
 
-In part 3, he provides an eye opening diagram showing a flattened version of onion architecture, emphasising on Data Access being a top layer above two others: business logic, and object model. By attempting to keep the domain model pure, his solution is a concrete call on putting domain logic outside of the domain model, which is exacly what leads to anemic domain models and domain fragmentation (<<Evans2003, 2003, Evans>>, <<Fowler2003, 2003, Fowler>>). This happens because trying to keep a fundamentally impure operation pure forces you into a bad trade-off: you either bloat your application services or fragment your business rules across arbitrary boundaries (<<Khorikov2020, 2020, Khorikov>>).
+In part 3, he provides an eye opening diagram showing a flattened version of onion architecture, emphasising on Data Access being a top layer above two others: business logic, and object model. By attempting to keep the domain model pure, his solution is a concrete call on putting domain logic outside of the domain model, which is exactly what leads to anemic domain models and domain fragmentation (<<Evans2003, 2003, Evans>>, <<Fowler2003, 2003, Fowler>>). This happens because trying to keep a fundamentally impure operation pure forces you into a bad trade-off: you either bloat your application services or fragment your business rules across arbitrary boundaries (<<Khorikov2020, 2020, Khorikov>>).
 
 === Repositories are not infrastructure
 
@@ -182,11 +182,11 @@ So what was the problem in the first place? Well, at that time dependency inject
 
 Another layer of confusion emerged with the rise of modern Object-Relational Mappers (ORMs) like Entity Framework.
 
-Following the recommendations of thought leaders of that time, many were reluctant to reference classes of these libraries from their domain code. The motto of that time was that domain logic should not depend on infrastructure implementation, and these classes were seen as infrastructure code. Juste like they were taught not to reference the `UserRepository` directly but use an `IUserRepository` to abstract the repository's reference to concrete infratructure, they started adding abstraction layers above the ORM classes.
+Following the recommendations of thought leaders of that time, many were reluctant to reference classes of these libraries from their domain code. The motto of that time was that domain logic should not depend on infrastructure implementation, and these classes were seen as infrastructure code. Just like they were taught not to reference the `UserRepository` directly but use an `IUserRepository` to abstract the repository's reference to concrete infrastructure, they started adding abstraction layers above the ORM classes.
 
 **What they missed was that these libraries already were abstractions.**
 
-Referencing an abstraction instead of a concrete implementation solves coupling and dependencies issues. But stacking abstraction layers on top of others solves nothing: in the end, you still need to reference an abstraction layer. You've simply added redundancy, constraints and more resources consumption.
+Referencing an abstraction instead of a concrete implementation solves coupling and dependency issues. But stacking abstraction layers on top of others solves nothing: in the end, you still need to reference an abstraction layer. You've simply added redundancy, constraints and more resource consumption.
 
 Therefore, there should be no discouragement against referencing ORM repositories (such as `DbSet` in EF Core) from the domain model as long as they provide DI-based strategy patterns to inject the right concrete implementation. This is exactly what EF Core does for you out of the box with methods like `.AddSqlite<TContext>()` or `.UseSqlServer<TContext>()`. The EF Core *Driver* is your actual infrastructure layer (translating LINQ expressions into concrete SQL statements). This allows you to bind the exact same domain logic to entirely different infrastructures, with each application referencing the right driver package while the domain logic only references the core package.
 
@@ -201,13 +201,13 @@ A lot of people, including Jeffrey Palermo here, confuse changing your _infrastr
 
 If you build a robot programmed to interact with a standardized physical switch, that robot can operate a wide range of electrical systems—be it a 12V electronic circuit, a 220V light bulb, or a 380V three-phase industrial engine. However, designing a robot capable of interacting with *any generic form of switching mechanism imaginable* is an order of magnitude more complex and largely useless. 
 
-Let's face reality: how many software product faced a need in infrastructure change? And amongst these, how many required a change in their infrastructure _abstractions_? In most cases, being able to switch infrastructure is more than you would ever need. The rest is over-engineering because FOMO.
+Let's face reality: how many software products faced a need in infrastructure change? And amongst these, how many required a change in their infrastructure _abstractions_? In most cases, being able to switch infrastructure is more than you would ever need. The rest is over-engineering because FOMO.
 
 Pick your poison.
 
 === Completeness matters more than purity
 
-Now, since we supposedly can't have both, what would be reasons for developpers to make their domain model complete rather than pure? There are two reasons why:
+Now, since we supposedly can't have both, what would be reasons for developers to make their domain model complete rather than pure? There are two reasons why:
 
 First, as we saw earlier, fragmenting the domain model into a pure part and a non-pure one leads to anemic domain models. Because pure parts usually focus on rules validation (as long as their scope is limited to the entity instance), whereas impure parts focus on orchestration. With a complete domain model you can have your logic inside the entity, making it more expressive.
 
