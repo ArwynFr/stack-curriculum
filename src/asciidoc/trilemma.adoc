@@ -1,6 +1,6 @@
 = Solving the Domain Trilemma: You can have your cake and eat it too
 Adrien Hupond
-v2.0, 2026-06-17
+v2.0, 2026-06-25
 :toc:
 :!webfonts:
 :docinfo: shared
