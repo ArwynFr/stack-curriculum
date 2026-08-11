@@ -5,7 +5,7 @@ RUN asciidoctor curriculum.adoc
 RUN asciidoctor trilemma.adoc
 RUN asciidoctor-pdf curriculum.adoc
 
-FROM tdewolff/minify:v2.24.16@sha256:9666f3bd0b6c7ea756715270fd5be2c5ad008ceeace5801924b7db77f914e9f7 AS minifier
+FROM tdewolff/minify:v2.24.17@sha256:f3a9c5c91fad6b4e5b451a5076a9e2a8a8f6c51e9c93254c0eeeb2dda033e2e2 AS minifier
 WORKDIR /src/curriculum
 COPY --from=asciidoc /src/curriculum/curriculum.html ./
 COPY --from=asciidoc /src/curriculum/trilemma.html ./
