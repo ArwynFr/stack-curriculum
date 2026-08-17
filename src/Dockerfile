@@ -17,5 +17,6 @@ FROM nginxinc/nginx-unprivileged:1.31.3-alpine-slim@sha256:d61d7ef52430df468e74e
 WORKDIR /usr/share/nginx/html
 COPY --from=minifier /src/curriculum/curriculum.html index.html
 COPY --from=minifier /src/curriculum/curriculum_classique.html curriculum_classique.html
+COPY --from=minifier /src/curriculum/trilemma.html trilemma.html
 COPY --from=asciidoc /src/curriculum/*.pdf .
 COPY ./www ./
