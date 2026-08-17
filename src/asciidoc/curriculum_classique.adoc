@@ -1,0 +1,153 @@
+= Adrien HUPOND
+:pdf-theme: ./curriculum.yml
+:!webfonts:
+:docinfo: shared
+:favicon:
+
+[.text-center]
+*ARCHITECTE LOGICIEL & SOLUTIONS* +
+HABILITABLE TRÈS SECRET
+
+|===
+^| 15 ans d'expérience professionnelle .
+https://www.linkedin.com/in/ahupond/[LinkedIn] .
+https://github.com/ArwynFr[GitHub] +
+*Anglais* niveau C1 .
+*Allemand* niveau B1 .
+*Japonais* niveau A1 +
+ifeval::["{backend}" == "html5"]
+🖨️ https://ahupond.dev/curriculum_classique.pdf[Télécharger la version imprimable]
+endif::[]
+ifeval::["{backend}" == "pdf"]
+🌐 https://ahupond.dev/curriculum_classique.html[Consulter la version en ligne]
+endif::[]
+|===
+
+== Profil
+
+Ingénieur informatique avec *15+ ans d'expérience* en développement, architecture logicielle et systèmes d'information, dont 7 ans dans l'industrie, l'énergie et le nucléaire. Parcours combinant *architecture de solutions, expertise technique, management et pilotage de projets*, avec encadrement jusqu'à 12 collaborateurs. Expérience de projets *classés au titre de la sécurité nationale* et d'environnements fortement contraints.
+
+== Compétences techniques
+
+* *Développement* : .NET / C# · Java · Angular
+* *Architecture* : Domain-Driven Design (DDD) · API synchrones et asynchrones · gRPC · RabbitMQ · MQTT
+* *Données* : SQL Server · PostgreSQL · Redis · Entity Framework Core
+* *Plateformes & infrastructure* : Kubernetes / RKE2 · Helm · Ansible · Azure DevOps Server · GitHub · GitLab
+* *IAM & sécurité* : Keycloak · HashiCorp Vault · ACME / Let's Encrypt · DevSecOps · sécurité applicative · tests d'intrusion
+* *Observabilité & exploitation* : OpenTelemetry · Dynatrace · .NET Aspire · LibreNMS
+* *Pratiques d'ingénierie* : Agile · Scrum · Team Topologies · CI/CD · versioning · OCI Registries
+* *Architecture documentaire* : Architecture as Code · ADR · AsciiDoc · D2 · UML · ArchiMate · Enterprise Architect · TOGAF
+
+== Expérience professionnelle
+
+[cols="10,2" frame="none", grid="none"]
+|===
+| *Architecte transformation digitale* . _Septeo Solutions Notaires / Genapi_
+| 2024 - ce jour
+|===
+
+Membre de l'équipe d'architecture transverse d'un SI de *25+ MLOC*, plusieurs centaines d'applicatifs et *12 value streams*, avec un rôle d'architecture de solutions et de rationalisation technologique.
+
+* Rationalisation du portefeuille technologique : bases de données, cloud, bus de messages, OIDC, micro-frontends, ...
+* Formalisation de *cadres et arbres de décision* pour le choix des solutions techniques.
+* Intégration de revues d'architecture basées sur les ADR d'entreprise dans les pipelines projets.
+* Programme d'optimisation de la chaîne CI/CD générant *~1,2 M€ d'économies annuelles*.
+
+[cols="10,2" frame="none", grid="none"]
+|===
+| *Architecte solutions* . _CS Group_
+| 2017 - 2024
+|===
+
+Architecture et responsabilité technique pour des clients de l'énergie, du nucléaire et des transports, dont plusieurs *projets classés au titre de la sécurité nationale*. Activité mêlant architecture, responsabilités techniques, expertise, avant-vente et management. Encadrement jusqu'à *12 collaborateurs* et animation des entretiens annuels.
+
+*Réalisations représentatives*
+
+* *CEA — Caraïbes (2022–2023)* : architecte solutions pour la modernisation du SI de traçabilité des déchets radioactifs. Conception d'un système distribué à communication asynchrone, accompagnement des équipes, déploiement d'un *cluster Kubernetes RKE2 air-gap en environnement classifié*, installation et administration d'*Azure DevOps Server on-premise* et maîtrise de la chaîne d'artefacts hors connexion.
+* *CEA Grenoble — TMMA (2017–2022)* : co-pilotage technique d'un centre de service de *60 à 70 actifs logiciels* ; pilotage des consultants SSI et lead developers, harmonisation des standards Build/Run, maintenabilité et sécurité.
+* *STIB — SPIDER (2022–2024)* : audit d'un système d'information voyageur en situation de blocage. Identification d'un conflit structurel d'organisation, mise en place d'une gouvernance technique et de cycles de déploiement ; conclusions utilisées par la Direction pour appuyer une restructuration du service selon les principes de la loi de Conway.
+* *EDF — Corrosion sous contrainte (2024)* : architecture d'une solution intégrant des briques IA pour l'expertise de données ultrasonores des circuits primaires ; développement du composant d'ingestion haute performance.
+
+<<<
+
+* *EDF DTG — LIONNE / TAUPE (2020–2021)* : architecture, chiffrage et audit de logiciels employés pour la surveillance des installations électriques et nucléaires, notamment lors des visites décennales.
+* *Framatome — KCF (2021–2022)* : accompagnement technique de la modernisation d'un SI utilisé pour la maintenance décennale des centrales nucléaires françaises.
+* *CEA Grenoble — GEPETO (2017–2019)* : pilotage de maintenance évolutive et corrective ; recrutement et organisation d'une équipe de *8 collaborateurs sur deux sites* ; généralisation d'un outil initialement local à l'échelle d'une direction.
+* *AKonsulting — Comptabilité nucléaire (2024)* : AMOA et architecture d'un système interopérable avec les SI des autorités nationales et européennes pour répondre aux obligations de comptabilité des matières radioactives.
+
+
+[cols="10,2" frame="none", grid="none"]
+|===
+| *Consultant IT* . _Capgemini Telecom Services_
+| 2011 - 2017
+|===
+
+Conception et développement de solutions SI, industrialisation et administration de plateformes dans les télécoms, les services et l'énergie.
+
+* Développement .NET, Java et Qlik ; CI/CD et outillage ; administration Windows / Linux.
+* *Arkadin* : participation à la refonte du SI puis direction d'une équipe de *4 personnes en France et aux États-Unis* pour développer une API publique destinée à l'intégration des services dans les SI grands comptes.
+* *ErDF* : développement et intégration d'un système de supervision réseau avec communication bas niveau vers des équipements Alcatel et Cisco ; cluster haute disponibilité RHEL.
+* *Centre de service QlikView* : développement, industrialisation, hébergement et maintenance d'applications de datavisualisation.
+
+== Leadership & engagements
+
+[cols="10,2" frame="none", grid="none"]
+|===
+| *Enseignant vacataire* . _Université Grenoble-Alpes_
+| 2023 - ce jour
+|===
+
+* Cours magistral *« L'influence des SI sur le management »* dans le secteur de la santé.
+
+[cols="10,2" frame="none", grid="none"]
+|===
+| *Bénévole* . _Protection Civile de l'Isère_
+| 2014 - 2017
+|===
+
+* Équipier secouriste et *formateur à l'emploi, à la conduite et à l'entretien des véhicules d'urgence*
+* Dispositifs prévisionnels de secours, recherche de personnes et soutien aux victimes de catastrophes.
+
+[cols="10,2" frame="none", grid="none"]
+|===
+| *Scoutisme* . _Scouts et Guides de France_
+| 2006 - 2024
+|===
+
+* *Responsable du pôle pédagogique du Finistère* : analyse et autorisation des camps pour un périmètre d'environ *2 000 jeunes*.
+* *Directeur adjoint d'un camp itinérant Rennes–Bordeaux à vélo* : coordination de *120 jeunes et 23 adultes*.
+* *Directeur d'un camp national de protection de la forêt* : direction de *120 jeunes de 3 nationalités*, intégration au dispositif préfectoral DFCI : patrouilles, vigie, formation, accompagnement pédagogique, qualité de vie et gestion des conflits.
+* Formation technique, administrative, et pédagogique d'adultes depuis 2009 et management de bénévoles.
+
+[cols="10,2" frame="none", grid="none"]
+|===
+| *Management de communautés de simulation en ligne*
+| 2000 - ce jour
+|===
+* *GSRI — membre depuis 2018* : direction d'une communauté opérant à distance.
+* Management, ingénierie pédagogique (approche par activités), médiation, et animation de la communauté.
+* Chef de compagnie lors d'une opération réunissant *120 joueurs, 14 nationalités, 8 fuseaux horaires* sur Arma 3.
+
+== Formation & certifications
+
+[cols="10,2" frame="none", grid="none"]
+|===
+
+| *ITIL Foundation v4* . _Peoplecert_ 
+| 2021
+
+| *Ingénieur diplômé ENIB — Informatique* . _Ecole Nationale d'Ingénieurs de Brest_
+| 2011
+
+| *BTS IRIS* . _Lycée St Michel_ . Annecy . Mention très bien · Major de l'acadédmie de Grenoble
+| 2007
+|===
+
+== Publications
+
+[cols="10,2" frame="none", grid="none"]
+|===
+
+| *Domain-Driven Design* : article personnel sur le « DDD Trilemma » — https://ahupond.dev/trilemma.html[ahupond.dev/trilemma]
+| 2026
+|===

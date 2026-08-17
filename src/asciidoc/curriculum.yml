@@ -8,11 +8,13 @@ sidebar:
   padding: [2, 8]
   background-color: #F3F3F2
 heading-h1:
-  font-size: 18
-heading-h2:
   font-size: 16
+heading-h2:
+  font-size: 13
 heading-h3:
   font-size: 10
 table:
   border-width: 0
   grid-width: [1, 0]
+list:
+  item-spacing: 0
