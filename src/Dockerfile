@@ -7,7 +7,7 @@ RUN asciidoctor trilemma.adoc
 RUN asciidoctor-pdf curriculum.adoc
 RUN asciidoctor-pdf curriculum_classique.adoc
 
-FROM tdewolff/minify:v2.24.18@sha256:a65b40d3f2058bcc07ea78fccc1011f237e5d5d9a455871b7e27c28473c04c88 AS minifier
+FROM tdewolff/minify:v2.24.19@sha256:d8142550325e481deecd1c8b4a1b74dbd21f082016ccd48c731dec32bf204208 AS minifier
 WORKDIR /src/curriculum
 COPY --from=asciidoc /src/curriculum/*.html .
 RUN for ext in "css" "js" "html"; do find . -name "*.$ext" -exec minify -o {} {} \;; done
